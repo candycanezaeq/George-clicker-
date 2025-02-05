@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEORGE CLICKER V0.0.4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+            margin: 0;
+            overflow: hidden;
+        }
+        h1 {
+            animation: pulse 1s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+        #pls-text {
+            font-size: 20px;
+            font-weight: bold;
+            position: fixed;
+            color: red;
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 10;
+            text-align: center;
+            white-space: pre-line;
+            line-height: 1.5;
+            font-size: 30px;
+            padding-top: 20%;
+        }
+        #clicker {
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+        #shop {
+            margin-top: 20px;
+            background: gray;
+            padding: 15px;
+            width: 300px;
+            text-align: left;
+            display: inline-block;
+        }
+        .shop-item {
+            margin: 10px 0;
+            cursor: pointer;
+            background: darkgray;
+            padding: 5px;
+        }
+        #changelog-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            color: black;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+        #changelog {
+            display: none;
+            position: fixed;
+            top: 40px;
+            right: 10px;
+            background: white;
+            color: black;
+            padding: 10px;
+            border: 1px solid black;
+        }
+        #credits {
+            position: fixed;
+            bottom: 5px;
+            right: 5px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>GEORGE CLICKER V0.0.4</h1>
+    <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
+    <div id="changelog">
+        <p>- Added new shop items</p>
+        <p>- Added pulsing title</p>
+        <p>- Added non-stackable upgrades</p>
+        <p>- Added "PLS DON'T LEAVE" effect</p>
+        <p>- Fixed some bugs and typos</p>
+        <p>- Added "Made by Cabdycane"</p>
+    </div>
+    <div id="pls-text"></div>
+    <h2>Clicks: <span id="counter">0</span></h2>
+    <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" onclick="handleClick()">
+    
+    <div id="shop">
+        <h2>Shop</h2>
+        <div class="shop-item" onclick="buyUpgrade('George Droid', 200, 4, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">George Droid (200 clicks) - +4/click, 1 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('Anne Clank', 300, 10, 5, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png')">Anne Clank (300 clicks) - +10/click, 5 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('Ambatatron', 400, 15, 6, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0053.png')">Ambatatron (400 clicks) - +15/click, 6 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('XXXTENTACION', 600, 20, 7, 'https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg')">XXXTENTACION (600 clicks) - +20/click, 7 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('Scooby Jew', 700, 39, 9, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0054.jpeg')">Scooby Jew (700 clicks) - +39/click, 9 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('Rizzler', 900, 50, 10, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0055.jpeg')">Rizzler (900 clicks) - +50/click, 10 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('Low Taper', 1000, 70, 11, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0056.jpeg')">Low Taper (1000 clicks) - +70/click, 11 auto/sec</div>
+        <div class="shop-item" onclick="buyUpgrade('Candycane', 10000, 9999999999, 9999999999, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">Candycane (10000 clicks) - MAX</div>
+    </div>
+
+    <div id="credits">Made by Cabdycane</div>
+
+    <script>
+        let clicks = 0;
+        let clickMultiplier = 1;
+        let autoClickRate = 0;
+        let autoClickInterval;
+
+        function handleClick() {
+            clicks += clickMultiplier;
+            document.getElementById("counter").textContent = clicks;
+        }
+
+        function buyUpgrade(name, cost, newMultiplier, newAutoClick, image) {
+            if (clicks >= cost) {
+                clicks -= cost;
+                clickMultiplier = newMultiplier;
+                autoClickRate = newAutoClick;
+                document.getElementById("counter").textContent = clicks;
+                document.getElementById("clicker").src = image;
+
+                clearInterval(autoClickInterval);
+                autoClickInterval = setInterval(() => {
+                    clicks += autoClickRate;
+                    document.getElementById("counter").textContent = clicks;
+                }, 1000);
+            }
+        }
+
+        function toggleChangelog() {
+            let changelog = document.getElementById("changelog");
+            changelog.style.display = (changelog.style.display === "block") ? "none" : "block";
+        }
+
+        window.onmouseout = () => {
+            let plsText = document.getElementById("pls-text");
+            plsText.style.display = "block";
+            plsText.innerHTML = "PLS DON'T LEAVE😭 ".repeat(100);
+        };
+
+        window.onmouseover = () => {
+            let plsText = document.getElementById("pls-text");
+            plsText.style.display = "none";  // Now properly disappears
+        };
+    </script>
+</body>
+</html> 
