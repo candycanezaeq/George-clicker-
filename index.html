@@ -3,22 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER REMASTERED V0.0.8</title>
+  <title>FLOYD CLICKER V0.1.7</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       text-align: center;
-      background-color: black;
+      background-color: #1a1a1a;
       color: white;
       margin: 0;
       overflow: hidden;
     }
     h1 {
       animation: pulse 1s infinite alternate;
+      color: #ffcc00;
+      font-size: 2.5rem;
     }
     @keyframes pulse {
       0% { transform: scale(1); }
       100% { transform: scale(1.1); }
+    }
+    #status-bar {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #00ff00;
     }
     #pls-text {
       font-weight: bold;
@@ -41,63 +53,100 @@
       width: 200px;
       height: 200px;
       cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    #clicker:active {
+      transform: scale(0.95);
     }
     #shop-container {
       margin-top: 20px;
-      background: gray;
+      background: #333;
       padding: 15px;
       width: 350px;
       height: 350px;
       text-align: left;
       display: inline-block;
       overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
     .shop-item {
       margin: 10px 0;
       cursor: pointer;
-      background: darkgray;
-      padding: 5px;
+      background: #444;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background 0.2s ease;
+    }
+    .shop-item:hover {
+      background: #555;
     }
     #changelog-btn {
       position: fixed;
       top: 10px;
       right: 10px;
-      background: white;
+      background: #ffcc00;
       color: black;
       border: none;
-      padding: 5px;
+      padding: 8px 12px;
       cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
     }
     #changelog {
       display: none;
       position: fixed;
-      top: 40px;
+      top: 50px;
       right: 10px;
       background: white;
       color: black;
-      padding: 10px;
-      border: 1px solid black;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 100;
     }
     #credits {
       position: fixed;
       bottom: 5px;
       right: 5px;
-      color: rgba(255, 255, 255, 0.3);
+      color: rgba(255, 255, 255, 0.5);
       font-size: 12px;
+    }
+    #github-embed {
+      position: fixed;
+      bottom: 30px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #github-embed:hover {
+      text-decoration: underline;
+    }
+    #memorial-link {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #memorial-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>FLOYD CLICKER REMASTERED V0.0.8</h1>
+  <div id="status-bar">
+    <span id="fps">FPS: 60</span> | <span id="device-info">Device: Unknown</span> | <span id="os-info">OS: Unknown</span>
+  </div>
+  <h1>FLOYD CLICKER V0.1.7</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Kept all previous shop items</p>
-    <p>- Added new shop items</p>
-    <p>- Made shop scrollable</p>
-    <p>- Updated Candycane price to 10,000,000 clicks</p>
-    <p>- Added "PLS DON'T LEAVE" effect</p>
-    <p>- Fixed bugs and typos</p>
-    <p>- Added "Made by Cabdycane"</p>
+    <p>- Balanced shop prices and click multipliers</p>
+    <p>- Made progression smoother and less grindy</p>
+    <p>- Fixed background music</p>
+    <p>- Added Nautica Malone memorial link</p>
   </div>
   <div id="pls-text"></div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -105,62 +154,125 @@
 
   <div id="shop-container">
     <h2>Shop</h2>
-    <!-- Original Shop Items -->
-    <div class="shop-item" onclick="buyUpgrade('George Droid', 200, 4, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
-      George Droid (200 clicks) - +4/click, 1 auto/sec
+    <!-- Balanced Shop Items -->
+    <div class="shop-item" onclick="buyUpgrade('George Droid', 100, 2, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
+      George Droid (100 clicks) - +2/click, 1 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Anne Clank', 300, 10, 5, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png')">
-      Anne Clank (300 clicks) - +10/click, 5 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Anne Clank', 300, 4, 2, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png')">
+      Anne Clank (300 clicks) - +4/click, 2 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Ambatatron', 400, 15, 6, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0053.png')">
-      Ambatatron (400 clicks) - +15/click, 6 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Ambatatron', 600, 6, 3, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0053.png')">
+      Ambatatron (600 clicks) - +6/click, 3 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('XXXTENTACION', 600, 20, 7, 'https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg')">
-      XXXTENTACION (600 clicks) - +20/click, 7 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('XXXTENTACION', 1200, 8, 4, 'https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg')">
+      XXXTENTACION (1,200 clicks) - +8/click, 4 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Scooby Jew', 700, 39, 9, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0054.jpeg')">
-      Scooby Jew (700 clicks) - +39/click, 9 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Scooby Jew', 2400, 10, 5, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0054.jpeg')">
+      Scooby Jew (2,400 clicks) - +10/click, 5 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Rizzler', 900, 50, 10, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0055.jpeg')">
-      Rizzler (900 clicks) - +50/click, 10 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Rizzler', 4800, 12, 6, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0055.jpeg')">
+      Rizzler (4,800 clicks) - +12/click, 6 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Low Taper', 1000, 70, 11, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0056.jpeg')">
-      Low Taper (1000 clicks) - +70/click, 11 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Low Taper', 9600, 14, 7, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0056.jpeg')">
+      Low Taper (9,600 clicks) - +14/click, 7 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Candycane', 10000000, 9999999999, 9999999999, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
-      Candycane (10,000,000 clicks) - MAX
+    <div class="shop-item" onclick="buyUpgrade('Candycane', 19200, 999999, 99999, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
+      Candycane (19,200 clicks) - MAX
     </div>
     <!-- New Shop Items -->
-    <div class="shop-item" onclick="buyUpgrade('Black Guy', 1100, 90, 11, 'https://assets.onecompiler.app/437rezxye/437rf2ecw/8zmonu.gif')">
-      Black Guy (1100 clicks) - +90/click, 11 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Black Guy', 19200, 16, 8, 'https://assets.onecompiler.app/437rezxye/437rf2ecw/8zmonu.gif')">
+      Black Guy (19,200 clicks) - +16/click, 8 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Chopped Chin', 1700, 100, 13, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0088.jpeg')">
-      Chopped Chin (1700 clicks) - +100/click, 13 auto/sec (Unlocks "Chin of Copedness")
+    <div class="shop-item" onclick="buyUpgrade('Chopped Chin', 38400, 18, 9, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0088.jpeg')">
+      Chopped Chin (38,400 clicks) - +18/click, 9 auto/sec (Unlocks "Chin of Copedness")
     </div>
-    <div class="shop-item" onclick="buyUpgrade('TS PMO', 1900, 101, 20, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0089.jpeg')">
-      TS PMO (1900 clicks) - +101/click, 20 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('TS PMO', 76800, 20, 10, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0089.jpeg')">
+      TS PMO (76,800 clicks) - +20/click, 10 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Friggin Packet Yo', 2000, 110, 22, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0090.jpeg')">
-      Friggin Packet Yo (2000 clicks) - +110/click, 22 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Friggin Packet Yo', 153600, 22, 11, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0090.jpeg')">
+      Friggin Packet Yo (153,600 clicks) - +22/click, 11 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('George Derek Fusion', 2300, 130, 24, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0091.jpeg')">
-      George Derek Fusion (2300 clicks) - +130/click, 24 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('George Derek Fusion', 307200, 24, 12, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0091.jpeg')">
+      George Derek Fusion (307,200 clicks) - +24/click, 12 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('AI Putin', 2500, 140, 25, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg')">
-      AI Putin (2500 clicks) - +140/click, 25 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('AI Putin', 614400, 26, 13, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg')">
+      AI Putin (614,400 clicks) - +26/click, 13 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('My Cat', 100000, 999999, 99999, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
-      My Cat (100000 clicks) - 999999/click, 99999 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('My Cat', 1228800, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
+      My Cat (1,228,800 clicks) - +28/click, 14 auto/sec
     </div>
   </div>
 
   <div id="credits">Made by Cabdycane</div>
+  <a id="github-embed" href="https://github.com/candycanezaeq" target="_blank">More Dumb Games</a>
+  <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
+
+  <audio id="bg-music" loop autoplay>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     let clicks = 0;
     let clickMultiplier = 1;
     let autoClickRate = 0;
     let autoClickInterval;
+
+    // FPS Counter
+    let lastFrameTime = performance.now();
+    function updateFPS() {
+      const now = performance.now();
+      const delta = now - lastFrameTime;
+      const fps = Math.round(1000 / delta);
+      document.getElementById("fps").textContent = `FPS: ${fps}`;
+      lastFrameTime = now;
+      requestAnimationFrame(updateFPS);
+    }
+    updateFPS();
+
+    // Device and OS Detection
+    function detectDeviceAndOS() {
+      const userAgent = navigator.userAgent;
+      let device = "Unknown";
+      let os = "Unknown";
+
+      // Detect Device
+      if (/Mobi|Android/i.test(userAgent)) {
+        device = "Mobile";
+      } else if (/Tablet|iPad/i.test(userAgent)) {
+        device = "Tablet";
+      } else {
+        device = "Desktop";
+      }
+
+      // Detect OS
+      if (/Windows/i.test(userAgent)) {
+        os = "Windows";
+      } else if (/Macintosh|Mac OS X/i.test(userAgent)) {
+        os = "macOS";
+      } else if (/Linux/i.test(userAgent)) {
+        os = "Linux";
+      } else if (/Android/i.test(userAgent)) {
+        os = "Android";
+      } else if (/iOS|iPhone|iPad|iPod/i.test(userAgent)) {
+        os = "iOS";
+      }
+
+      document.getElementById("device-info").textContent = `Device: ${device}`;
+      document.getElementById("os-info").textContent = `OS: ${os}`;
+    }
+    detectDeviceAndOS();
+
+    // Background Music
+    const bgMusic = document.getElementById("bg-music");
+    bgMusic.volume = 0.3;
+    bgMusic.play();
+
+    // Tab Close Warning
+    window.addEventListener('beforeunload', (e) => {
+      e.preventDefault();
+      e.returnValue = 'Are you sure you want to leave? Unsaved progress may go away.';
+    });
 
     function handleClick() {
       clicks += clickMultiplier;
@@ -198,4 +310,4 @@
     };
   </script>
 </body>
-</html> 
+</html>
