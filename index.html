@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V0.1.7</title>
+  <title>FLOYD CLICKER V0.1.9</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -140,13 +140,12 @@
   <div id="status-bar">
     <span id="fps">FPS: 60</span> | <span id="device-info">Device: Unknown</span> | <span id="os-info">OS: Unknown</span>
   </div>
-  <h1>FLOYD CLICKER V0.1.7</h1>
+  <h1>FLOYD CLICKER V0.1.9</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Balanced shop prices and click multipliers</p>
-    <p>- Made progression smoother and less grindy</p>
-    <p>- Fixed background music</p>
-    <p>- Added Nautica Malone memorial link</p>
+    <p>- Added Big Justice (one of the best upgrades)</p>
+    <p>- Updated background music to "Local Forecast" by Kevin MacLeod</p>
+    <p>- v1.0 Coming Soon!</p>
   </div>
   <div id="pls-text"></div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -198,8 +197,11 @@
     <div class="shop-item" onclick="buyUpgrade('AI Putin', 614400, 26, 13, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg')">
       AI Putin (614,400 clicks) - +26/click, 13 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('My Cat', 1228800, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
-      My Cat (1,228,800 clicks) - +28/click, 14 auto/sec
+    <div class="shop-item" onclick="buyUpgrade('Big Justice', 1228800, 999999, 99999, 'https://assets.onecompiler.app/437rezxye/438hfkhv9/IMG_0106.jpeg')">
+      Big Justice (1,228,800 clicks) - +999999/click, 99999 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('My Cat', 2457600, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
+      My Cat (2,457,600 clicks) - +28/click, 14 auto/sec
     </div>
   </div>
 
@@ -208,7 +210,7 @@
   <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
 
   <audio id="bg-music" loop autoplay>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="https://incompetech.filmmusic.io/song/3986-local-forecast" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
