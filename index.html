@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V0.1.9</title>
+  <title>FLOYD CLICKER V1.0</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -163,18 +163,29 @@
       0% { opacity: 1; }
       100% { opacity: 0; }
     }
+    #discord-embed {
+      position: fixed;
+      bottom: 90px;
+      right: 10px;
+      background: #5865F2;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="status-bar">
     <span id="fps">FPS: 60</span> | <span id="device-info">Device: Unknown</span> | <span id="os-info">OS: Unknown</span> | <span id="browser-info">Browser: Unknown</span>
   </div>
-  <h1>FLOYD CLICKER V0.1.9</h1>
+  <h1>FLOYD CLICKER V1.0</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Added Big Justice (one of the best upgrades)</p>
-    <p>- Updated background music to "Local Forecast" by Kevin MacLeod</p>
-    <p>- v1.0 Coming Soon!</p>
+    <p>- Added new shop items: Skid Kid, Tuff Bear, Gangsta Simpsons, Hot Black Guy, Grubhub, Server Warning, Batatron Floyd Duo, Alien, Phonk Brainrot</p>
+    <p>- Updated Ambatatron image</p>
+    <p>- Added auto-click detection</p>
+    <p>- Celebrated v1.0 release with Discord embed</p>
   </div>
   <div id="pls-text"></div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -182,14 +193,14 @@
 
   <div id="shop-container">
     <h2>Shop</h2>
-    <!-- Updated Shop Items -->
+    <!-- Original Shop Items -->
     <div class="shop-item" onclick="buyUpgrade('George Droid', 50, 2, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
       George Droid (50 clicks) - +2/click, 1 auto/sec
     </div>
     <div class="shop-item" onclick="buyUpgrade('Anne Clank', 150, 4, 2, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png')">
       Anne Clank (150 clicks) - +4/click, 2 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Ambatatron', 300, 6, 3, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0053.png')">
+    <div class="shop-item" onclick="buyUpgrade('Ambatatron', 300, 6, 3, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0053.png')">
       Ambatatron (300 clicks) - +6/click, 3 auto/sec
     </div>
     <div class="shop-item" onclick="buyUpgrade('XXXTENTACION', 600, 8, 4, 'https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg')">
@@ -207,7 +218,6 @@
     <div class="shop-item" onclick="buyUpgrade('Candycane', 1000000000, 9999999999, 9999999999, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
       Candycane (1,000,000,000 clicks) - MAX
     </div>
-    <!-- New Shop Items -->
     <div class="shop-item" onclick="buyUpgrade('Black Guy', 9600, 16, 8, 'https://assets.onecompiler.app/437rezxye/437rf2ecw/8zmonu.gif')">
       Black Guy (9,600 clicks) - +16/click, 8 auto/sec
     </div>
@@ -232,11 +242,42 @@
     <div class="shop-item" onclick="buyUpgrade('My Cat', 1228800, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
       My Cat (1,228,800 clicks) - +28/click, 14 auto/sec
     </div>
+    <!-- New Shop Items -->
+    <div class="shop-item" onclick="buyUpgrade('Skid Kid', 2457600, 30, 15, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0116.jpeg')">
+      Skid Kid (2,457,600 clicks) - +30/click, 15 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Tuff Bear', 4915200, 32, 16, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0127.jpeg')">
+      Tuff Bear (4,915,200 clicks) - +32/click, 16 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Gangsta Simpsons', 9830400, 34, 17, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0128.jpeg')">
+      Gangsta Simpsons (9,830,400 clicks) - +34/click, 17 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Hot Black Guy', 19660800, 36, 18, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0130.jpeg')">
+      Hot Black Guy (19,660,800 clicks) - +36/click, 18 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Grubhub', 39321600, 38, 19, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0131.jpeg')">
+      Grubhub (39,321,600 clicks) - +38/click, 19 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Server Warning', 78643200, 40, 20, 'https://assets.onecompiler.app/437rezxye/438ycydqa/Screenshot_2025-01-06_173218.png')">
+      Server Warning (78,643,200 clicks) - +40/click, 20 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Batatron Floyd Duo', 157286400, 42, 21, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0135.jpeg')">
+      Batatron Floyd Duo (157,286,400 clicks) - +42/click, 21 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Alien', 314572800, 44, 22, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0139.jpeg')">
+      Alien (314,572,800 clicks) - +44/click, 22 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Phonk Brainrot', 629145600, 46, 23, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0143.gif')">
+      Phonk Brainrot (629,145,600 clicks) - +46/click, 23 auto/sec
+    </div>
   </div>
 
   <div id="credits">Made by Cabdycane</div>
   <a id="github-embed" href="https://github.com/candycanezaeq" target="_blank">More Dumb Games</a>
   <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
+  <div id="discord-embed" onclick="window.open('https://discord.gg/cfEWPUKM', '_blank')">
+    JOIN RENT COLLECTOR'S DISCORD!
+  </div>
 
   <!-- Auto-Click Warning -->
   <div id="auto-click-warning">STOP</div>
