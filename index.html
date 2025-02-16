@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V1.0</title>
+  <title>FLOYD CLICKER V1.1</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -173,19 +173,34 @@
       border-radius: 5px;
       cursor: pointer;
     }
+    #reset-btn {
+      position: fixed;
+      bottom: 120px;
+      right: 10px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #reset-btn:hover {
+      background: #ff6666;
+    }
   </style>
 </head>
 <body>
   <div id="status-bar">
     <span id="fps">FPS: 60</span> | <span id="device-info">Device: Unknown</span> | <span id="os-info">OS: Unknown</span> | <span id="browser-info">Browser: Unknown</span>
   </div>
-  <h1>FLOYD CLICKER V1.0</h1>
+  <h1>FLOYD CLICKER V1.1</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Added new shop items: Skid Kid, Tuff Bear, Gangsta Simpsons, Hot Black Guy, Grubhub, Server Warning, Batatron Floyd Duo, Alien, Phonk Brainrot</p>
-    <p>- Updated Ambatatron image</p>
-    <p>- Added auto-click detection</p>
-    <p>- Celebrated v1.0 release with Discord embed</p>
+    <p>- Added Reset Button</p>
+    <p>- Balanced shop prices for smoother progression</p>
+    <p>- Improved click multipliers for better rewards</p>
+    <p>- Celebrated v1.1 release!</p>
   </div>
   <div id="pls-text"></div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -278,6 +293,7 @@
   <div id="discord-embed" onclick="window.open('https://discord.gg/cfEWPUKM', '_blank')">
     JOIN RENT COLLECTOR'S DISCORD!
   </div>
+  <button id="reset-btn" onclick="resetGame()">Reset Game</button>
 
   <!-- Auto-Click Warning -->
   <div id="auto-click-warning">STOP</div>
@@ -464,6 +480,19 @@
     window.onmouseover = () => {
       document.getElementById("pls-text").style.display = "none";
     };
+
+    // Reset Game
+    function resetGame() {
+      if (confirm("Are you sure you want to reset your progress? This cannot be undone!")) {
+        clicks = 0;
+        clickMultiplier = 1;
+        autoClickRate = 0;
+        document.getElementById("counter").textContent = clicks;
+        document.getElementById("clicker").src = "https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png";
+        clearInterval(autoClickInterval);
+        localStorage.clear();
+      }
+    }
 
     // Load progress on page load
     loadProgress();
