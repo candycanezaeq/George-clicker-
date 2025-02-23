@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V1.1.1</title>
+  <title>FLOYD CLICKER V1.1.3</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -59,13 +59,14 @@
       transform: scale(0.95);
     }
     #shop-container {
-      margin-top: 20px;
+      position: fixed;
+      top: 20px;
+      left: 20px;
       background: #333;
       padding: 15px;
-      width: 350px;
-      height: 350px;
+      width: 300px;
+      height: 80vh;
       text-align: left;
-      display: inline-block;
       overflow-y: auto;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -134,6 +135,17 @@
     #memorial-link:hover {
       text-decoration: underline;
     }
+    #nautica-bodycam-link {
+      position: fixed;
+      bottom: 90px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #nautica-bodycam-link:hover {
+      text-decoration: underline;
+    }
     .click-effect {
       position: absolute;
       width: 20px;
@@ -165,7 +177,7 @@
     }
     #discord-embed {
       position: fixed;
-      bottom: 90px;
+      bottom: 120px;
       right: 10px;
       background: #5865F2;
       color: white;
@@ -175,7 +187,7 @@
     }
     #reset-btn {
       position: fixed;
-      bottom: 120px;
+      bottom: 150px;
       right: 10px;
       background: #ff4444;
       color: white;
@@ -188,19 +200,30 @@
     #reset-btn:hover {
       background: #ff6666;
     }
+    .stop-popup {
+      position: absolute;
+      font-size: 2rem;
+      color: red;
+      font-weight: bold;
+      animation: bounce 0.5s infinite alternate;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
+    }
   </style>
 </head>
 <body>
   <div id="status-bar">
     <span id="fps">FPS: 60</span> | <span id="device-info">Device: Unknown</span> | <span id="os-info">OS: Unknown</span> | <span id="browser-info">Browser: Unknown</span>
   </div>
-  <h1>FLOYD CLICKER V1.1.1</h1>
+  <h1>FLOYD CLICKER V1.1.3</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Cheaper shop prices (none over 1 million clicks, except Candycane)</p>
-    <p>- Fixed Black Guy image</p>
-    <p>- Added Reset Button</p>
-    <p>- Celebrated v1.1.1 release!</p>
+    <p>- Removed Big Justice</p>
+    <p>- Added Nautica Bodycam Vid embed</p>
+    <p>- Updated shop layout</p>
+    <p>- Celebrated v1.1.3 release!</p>
   </div>
   <div id="pls-text"></div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -251,9 +274,6 @@
     <div class="shop-item" onclick="buyUpgrade('AI Putin', 153600, 26, 13, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg')">
       AI Putin (153,600 clicks) - +26/click, 13 auto/sec
     </div>
-    <div class="shop-item" onclick="buyUpgrade('Big Justice', 307200, 1000, 100, 'https://assets.onecompiler.app/437rezxye/438hfkhv9/IMG_0106.jpeg')">
-      Big Justice (307,200 clicks) - +1000/click, 100 auto/sec
-    </div>
     <div class="shop-item" onclick="buyUpgrade('My Cat', 614400, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
       My Cat (614,400 clicks) - +28/click, 14 auto/sec
     </div>
@@ -290,6 +310,7 @@
   <div id="credits">Made by Cabdycane</div>
   <a id="github-embed" href="https://github.com/candycanezaeq" target="_blank">More Dumb Games</a>
   <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
+  <a id="nautica-bodycam-link" href="https://x.com/tmz/status/1887931219410829743?s=46" target="_blank">NAUTICA BODYCAM VID (censored)</a>
   <div id="discord-embed" onclick="window.open('https://discord.gg/cfEWPUKM', '_blank')">
     JOIN RENT COLLECTOR'S DISCORD!
   </div>
@@ -317,6 +338,7 @@
     let autoClickInterval;
     let lastClickTime = 0;
     let clickCount = 0;
+    let upgrades = {};
 
     // Load saved progress
     function loadProgress() {
@@ -324,11 +346,13 @@
       const savedMultiplier = localStorage.getItem('clickMultiplier');
       const savedAutoClickRate = localStorage.getItem('autoClickRate');
       const savedClickerImage = localStorage.getItem('clickerImage');
+      const savedUpgrades = localStorage.getItem('upgrades');
 
       if (savedClicks) clicks = parseInt(savedClicks, 10);
       if (savedMultiplier) clickMultiplier = parseInt(savedMultiplier, 10);
       if (savedAutoClickRate) autoClickRate = parseInt(savedAutoClickRate, 10);
       if (savedClickerImage) document.getElementById('clicker').src = savedClickerImage;
+      if (savedUpgrades) upgrades = JSON.parse(savedUpgrades);
 
       document.getElementById('counter').textContent = clicks;
     }
@@ -339,6 +363,7 @@
       localStorage.setItem('clickMultiplier', clickMultiplier);
       localStorage.setItem('autoClickRate', autoClickRate);
       localStorage.setItem('clickerImage', document.getElementById('clicker').src);
+      localStorage.setItem('upgrades', JSON.stringify(upgrades));
     }
 
     // FPS Counter
@@ -416,11 +441,7 @@
       if (now - lastClickTime < 100) { // Detect rapid clicks (less than 100ms apart)
         clickCount++;
         if (clickCount >= 5) { // 5 rapid clicks trigger the warning
-          const warning = document.getElementById("auto-click-warning");
-          warning.style.display = "block";
-          setTimeout(() => {
-            warning.style.display = "none";
-          }, 1000);
+          createStopPopups();
           clickCount = 0;
         }
       } else {
@@ -448,11 +469,29 @@
       saveProgress();
     }
 
+    // Create bouncing "STOP" pop-ups
+    function createStopPopups() {
+      for (let i = 0; i < 10; i++) {
+        const stopPopup = document.createElement("div");
+        stopPopup.className = "stop-popup";
+        stopPopup.textContent = "STOP";
+        stopPopup.style.left = `${Math.random() * window.innerWidth}px`;
+        stopPopup.style.top = `${Math.random() * window.innerHeight}px`;
+        document.body.appendChild(stopPopup);
+        setTimeout(() => {
+          stopPopup.remove();
+        }, 2000);
+      }
+    }
+
+    // Buy Upgrade (stackable)
     function buyUpgrade(name, cost, newMultiplier, newAutoClick, image) {
       if (clicks >= cost) {
         clicks -= cost;
-        clickMultiplier = newMultiplier;
-        autoClickRate = newAutoClick;
+        if (!upgrades[name]) upgrades[name] = 0;
+        upgrades[name]++;
+        clickMultiplier += newMultiplier;
+        autoClickRate += newAutoClick;
         document.getElementById("counter").textContent = clicks;
         document.getElementById("clicker").src = image;
 
