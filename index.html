@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V1.2</title>
+  <title>FLOYD CLICKER V1.3</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -32,22 +32,18 @@
       font-size: 14px;
       color: #00ff00;
     }
-    #pls-text {
-      font-weight: bold;
-      position: fixed;
-      color: red;
+    #inactivity-message {
       display: none;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      z-index: 10;
-      text-align: center;
-      white-space: pre-line;
-      line-height: 1.5;
-      font-size: 30px;
-      padding-top: 20%;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      color: #ffcc00;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
     }
     #clicker {
       width: 200px;
@@ -211,28 +207,37 @@
       0% { transform: translateY(0); }
       100% { transform: translateY(-20px); }
     }
+    .watermark {
+      position: fixed;
+      bottom: 5px;
+      left: 5px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      user-select: none;
+    }
   </style>
 </head>
 <body>
   <div id="status-bar">
-    <span id="fps">FPS: 60</span> | <span id="device-info">Device: Unknown</span> | <span id="os-info">OS: Unknown</span> | <span id="browser-info">Browser: Unknown</span>
+    <span id="fps">FPS: 60</span>
   </div>
-  <h1>FLOYD CLICKER V1.2</h1>
+  <h1>FLOYD CLICKER V1.3</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Updated background music to "Local Forecast - Elevator"</p>
-    <p>- Removed Big Justice</p>
-    <p>- Added Nautica Bodycam Vid embed</p>
-    <p>- Updated shop layout</p>
-    <p>- Celebrated v1.2 release!</p>
+    <p>- Updated background music to a randomized playlist</p>
+    <p>- Added anti-autoclick measures</p>
+    <p>- Replaced "PLS DON'T LEAVE" with inactivity prompt</p>
+    <p>- Updated Discord link</p>
+    <p>- Added permanent watermark</p>
+    <p>- Credits: Candycane (Lead Dev), notmoist (Ideas)</p>
+    <p>- Celebrated v1.3 release!</p>
   </div>
-  <div id="pls-text"></div>
+  <div id="inactivity-message">Are you still there?</div>
   <h2>Clicks: <span id="counter">0</span></h2>
   <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" onclick="handleClick(event)">
 
   <div id="shop-container">
     <h2>Shop</h2>
-    <!-- Original Shop Items -->
     <div class="shop-item" onclick="buyUpgrade('George Droid', 25, 2, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
       George Droid (25 clicks) - +2/click, 1 auto/sec
     </div>
@@ -278,7 +283,6 @@
     <div class="shop-item" onclick="buyUpgrade('My Cat', 614400, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
       My Cat (614,400 clicks) - +28/click, 14 auto/sec
     </div>
-    <!-- New Shop Items -->
     <div class="shop-item" onclick="buyUpgrade('Skid Kid', 1228800, 30, 15, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0116.jpeg')">
       Skid Kid (1,228,800 clicks) - +30/click, 15 auto/sec
     </div>
@@ -308,11 +312,11 @@
     </div>
   </div>
 
-  <div id="credits">Made by Cabdycane</div>
-  <a id="github-embed" href="https://github.com/candycanezaeq" target="_blank">More Dumb Games</a>
+  <div id="credits">Made by Candycane</div>
+  <a id="github-embed" href="https://candycanezaeq.github.io/candyhub/" target="_blank">More Dumb Games</a>
   <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
   <a id="nautica-bodycam-link" href="https://x.com/tmz/status/1887931219410829743?s=46" target="_blank">NAUTICA BODYCAM VID (censored)</a>
-  <div id="discord-embed" onclick="window.open('https://discord.gg/cfEWPUKM', '_blank')">
+  <div id="discord-embed" onclick="window.open('https://discord.gg/eMXbNxnUs4', '_blank')">
     JOIN RENT COLLECTOR'S DISCORD!
   </div>
   <button id="reset-btn" onclick="resetGame()">Reset Game</button>
@@ -320,10 +324,12 @@
   <!-- Auto-Click Warning -->
   <div id="auto-click-warning">STOP</div>
 
+  <!-- Watermark -->
+  <div class="watermark">FLOYD CLICKER v1.3 by Candycane</div>
+
   <!-- Background Music -->
   <audio id="bg-music" loop autoplay>
-    <source src="https://github.com/candycanezaeq/George-clicker-/blob/main/Local%20Forecast%20-%20Elevator.mp3?raw=true" type="audio/mpeg">
-    Your browser does not support the audio element.
+    <!-- Music sources will be dynamically added -->
   </audio>
 
   <!-- Click Sound -->
@@ -340,8 +346,127 @@
     let lastClickTime = 0;
     let clickCount = 0;
     let upgrades = {};
+    let inactivityTimer;
 
-    // Load saved progress
+    // Music playlist
+    const musicPlaylist = [
+      "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/town-talk-made-with-Voicemod.mp3",
+      "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/mystic%20cave%20zone.mp3",
+      "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/Local%20Forecast%20-%20Elevator.mp3",
+      "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3",
+      "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3"
+    ];
+
+    // Randomize music
+    function playRandomMusic() {
+      const randomTrack = musicPlaylist[Math.floor(Math.random() * musicPlaylist.length)];
+      const bgMusic = document.getElementById("bg-music");
+      bgMusic.src = randomTrack;
+      bgMusic.volume = 0.3;
+      bgMusic.play();
+    }
+
+    // Inactivity check
+    function checkInactivity() {
+      inactivityTimer = setTimeout(() => {
+        document.getElementById("inactivity-message").style.display = "block";
+      }, 60000); // 1 minute
+    }
+
+    // Reset inactivity timer
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      document.getElementById("inactivity-message").style.display = "none";
+      checkInactivity();
+    }
+
+    // Anti-autoclick measures
+    function handleAutoClick() {
+      if (clickCount >= 5) {
+        document.getElementById("auto-click-warning").style.display = "block";
+        setTimeout(() => {
+          if (clickCount >= 5) {
+            localStorage.clear();
+            window.close(); // Close the tab
+          }
+        }, 2000);
+      }
+    }
+
+    // Handle click
+    function handleClick(event) {
+      const now = Date.now();
+      if (now - lastClickTime < 100) {
+        clickCount++;
+        handleAutoClick();
+      } else {
+        clickCount = 0;
+      }
+      lastClickTime = now;
+
+      // Play click sound
+      const clickSound = document.getElementById("click-sound");
+      clickSound.currentTime = 0;
+      clickSound.play();
+
+      // Add click effect
+      const clickEffect = document.createElement("div");
+      clickEffect.className = "click-effect";
+      clickEffect.style.left = `${event.clientX - 10}px`;
+      clickEffect.style.top = `${event.clientY - 10}px`;
+      document.body.appendChild(clickEffect);
+      setTimeout(() => {
+        clickEffect.remove();
+      }, 500);
+
+      // Increment clicks
+      clicks += clickMultiplier;
+      document.getElementById("counter").textContent = clicks;
+      saveProgress();
+      resetInactivityTimer();
+    }
+
+    // Buy Upgrade (stackable)
+    function buyUpgrade(name, cost, newMultiplier, newAutoClick, image) {
+      if (clicks >= cost) {
+        clicks -= cost;
+        if (!upgrades[name]) upgrades[name] = 0;
+        upgrades[name]++;
+        clickMultiplier += newMultiplier;
+        autoClickRate += newAutoClick;
+        document.getElementById("counter").textContent = clicks;
+        document.getElementById("clicker").src = image;
+
+        clearInterval(autoClickInterval);
+        autoClickInterval = setInterval(() => {
+          clicks += autoClickRate;
+          document.getElementById("counter").textContent = clicks;
+          saveProgress();
+        }, 1000);
+
+        saveProgress();
+      }
+    }
+
+    function toggleChangelog() {
+      let changelog = document.getElementById("changelog");
+      changelog.style.display = (changelog.style.display === "block") ? "none" : "block";
+    }
+
+    // Reset Game
+    function resetGame() {
+      if (confirm("Are you sure you want to reset your progress? This cannot be undone!")) {
+        clicks = 0;
+        clickMultiplier = 1;
+        autoClickRate = 0;
+        document.getElementById("counter").textContent = clicks;
+        document.getElementById("clicker").src = "https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png";
+        clearInterval(autoClickInterval);
+        localStorage.clear();
+      }
+    }
+
+    // Load progress on page load
     function loadProgress() {
       const savedClicks = localStorage.getItem('clicks');
       const savedMultiplier = localStorage.getItem('clickMultiplier');
@@ -379,162 +504,9 @@
     }
     updateFPS();
 
-    // Device, OS, and Browser Detection
-    function detectDeviceAndOS() {
-      const userAgent = navigator.userAgent;
-      let device = "Unknown";
-      let os = "Unknown";
-      let browser = "Unknown";
-
-      // Detect Device
-      if (/Mobi|Android/i.test(userAgent)) {
-        device = "Mobile";
-      } else if (/Tablet|iPad/i.test(userAgent)) {
-        device = "Tablet";
-      } else {
-        device = "Desktop";
-      }
-
-      // Detect OS
-      if (/Windows/i.test(userAgent)) {
-        os = "Windows";
-      } else if (/Macintosh|Mac OS X/i.test(userAgent)) {
-        os = "macOS";
-      } else if (/Linux/i.test(userAgent)) {
-        os = "Linux";
-      } else if (/Android/i.test(userAgent)) {
-        os = "Android";
-      } else if (/iOS|iPhone|iPad|iPod/i.test(userAgent)) {
-        os = "iOS";
-      }
-
-      // Detect Browser
-      if (/Chrome/i.test(userAgent)) {
-        browser = "Chrome";
-      } else if (/Firefox/i.test(userAgent)) {
-        browser = "Firefox";
-      } else if (/Safari/i.test(userAgent)) {
-        browser = "Safari";
-      } else if (/Edge/i.test(userAgent)) {
-        browser = "Edge";
-      } else if (/Opera|OPR/i.test(userAgent)) {
-        browser = "Opera";
-      }
-
-      document.getElementById("device-info").textContent = `Device: ${device}`;
-      document.getElementById("os-info").textContent = `OS: ${os}`;
-      document.getElementById("browser-info").textContent = `Browser: ${browser}`;
-    }
-    detectDeviceAndOS();
-
-    // Background Music
-    const bgMusic = document.getElementById("bg-music");
-    bgMusic.volume = 0.3;
-    bgMusic.play();
-
-    // Click Sound
-    const clickSound = document.getElementById("click-sound");
-    clickSound.volume = 0.2;
-
-    // Auto-Click Detection
-    function handleClick(event) {
-      const now = Date.now();
-      if (now - lastClickTime < 100) { // Detect rapid clicks (less than 100ms apart)
-        clickCount++;
-        if (clickCount >= 5) { // 5 rapid clicks trigger the warning
-          createStopPopups();
-          clickCount = 0;
-        }
-      } else {
-        clickCount = 0;
-      }
-      lastClickTime = now;
-
-      // Play click sound
-      clickSound.currentTime = 0;
-      clickSound.play();
-
-      // Add click effect
-      const clickEffect = document.createElement("div");
-      clickEffect.className = "click-effect";
-      clickEffect.style.left = `${event.clientX - 10}px`;
-      clickEffect.style.top = `${event.clientY - 10}px`;
-      document.body.appendChild(clickEffect);
-      setTimeout(() => {
-        clickEffect.remove();
-      }, 500);
-
-      // Increment clicks
-      clicks += clickMultiplier;
-      document.getElementById("counter").textContent = clicks;
-      saveProgress();
-    }
-
-    // Create bouncing "STOP" pop-ups
-    function createStopPopups() {
-      for (let i = 0; i < 10; i++) {
-        const stopPopup = document.createElement("div");
-        stopPopup.className = "stop-popup";
-        stopPopup.textContent = "STOP";
-        stopPopup.style.left = `${Math.random() * window.innerWidth}px`;
-        stopPopup.style.top = `${Math.random() * window.innerHeight}px`;
-        document.body.appendChild(stopPopup);
-        setTimeout(() => {
-          stopPopup.remove();
-        }, 2000);
-      }
-    }
-
-    // Buy Upgrade (stackable)
-    function buyUpgrade(name, cost, newMultiplier, newAutoClick, image) {
-      if (clicks >= cost) {
-        clicks -= cost;
-        if (!upgrades[name]) upgrades[name] = 0;
-        upgrades[name]++;
-        clickMultiplier += newMultiplier;
-        autoClickRate += newAutoClick;
-        document.getElementById("counter").textContent = clicks;
-        document.getElementById("clicker").src = image;
-
-        clearInterval(autoClickInterval);
-        autoClickInterval = setInterval(() => {
-          clicks += autoClickRate;
-          document.getElementById("counter").textContent = clicks;
-          saveProgress();
-        }, 1000);
-
-        saveProgress();
-      }
-    }
-
-    function toggleChangelog() {
-      let changelog = document.getElementById("changelog");
-      changelog.style.display = (changelog.style.display === "block") ? "none" : "block";
-    }
-
-    window.onmouseout = () => {
-      document.getElementById("pls-text").style.display = "block";
-      document.getElementById("pls-text").innerHTML = "PLS DON'T LEAVE😭 ".repeat(100);
-    };
-
-    window.onmouseover = () => {
-      document.getElementById("pls-text").style.display = "none";
-    };
-
-    // Reset Game
-    function resetGame() {
-      if (confirm("Are you sure you want to reset your progress? This cannot be undone!")) {
-        clicks = 0;
-        clickMultiplier = 1;
-        autoClickRate = 0;
-        document.getElementById("counter").textContent = clicks;
-        document.getElementById("clicker").src = "https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png";
-        clearInterval(autoClickInterval);
-        localStorage.clear();
-      }
-    }
-
-    // Load progress on page load
+    // Initialize
+    playRandomMusic();
+    checkInactivity();
     loadProgress();
   </script>
 </body>
