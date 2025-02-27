@@ -1,35 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLOYD CLICKER IS DOWN LEAVE</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        body {
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        img {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLOYD CLICKER V1.3.1</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #1a1a1a;
+      color: white;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 {
+      animation: pulse 1s infinite alternate;
+      color: #ffcc00;
+      font-size: 2.5rem;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+    #status-bar {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #00ff00;
+    }
+    #inactivity-message {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      color: #ffcc00;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    #clicker {
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    #clicker:active {
+      transform: scale(0.95);
+    }
+    #shop-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #333;
+      padding: 15px;
+      width: 300px;
+      height: 80vh;
+      text-align: left;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .shop-item {
+      margin: 10px 0;
+      cursor: pointer;
+      background: #444;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background 0.2s ease;
+    }
+    .shop-item:hover {
+      background: #555;
+    }
+    #changelog-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #ffcc00;
+      color: black;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #changelog {
+      display: none;
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+    }
+    #credits {
+      position: fixed;
+      bottom: 5px;
+      right: 5px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+    #github-embed {
+      position: fixed;
+      bottom: 30px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #github-embed:hover {
+      text-decoration: underline;
+    }
+    #memorial-link {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #memorial-link:hover {
+      text-decoration: underline;
+    }
+    #nautica-bodycam-link {
+      position: fixed;
+      bottom: 90px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #nautica-bodycam-link:hover {
+      text-decoration: underline;
+    }
+    .click-effect {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: clickAnimation 0.5s ease-out;
+    }
+    @keyframes clickAnimation {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    #auto-click-warning {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: red;
+      font-weight: bold;
+      z-index: 1000;
+      animation: flash 0.5s infinite alternate;
+    }
+    @keyframes flash {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    #discord-embed {
+      position: fixed;
+      bottom: 120px;
+      right: 10px;
+      background: #5865F2;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #reset-btn {
+      position: fixed;
+      bottom: 150px;
+      right: 10px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #reset-btn:hover {
+      background: #ff6666;
+    }
+    .stop-popup {
+      position: absolute;
+      font-size: 2rem;
+      color: red;
+      font-weight: bold;
+      animation: bounce 0.5s infinite alternate;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-20px); }
+    }
+    .watermark {
+      position: fixed;
+      bottom: 5px;
+      left: 5px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      user-select: none;
+    }
+    #song-credit {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      color: #ffcc00;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 1000;
+    }
+  </style>
 </head>
 <body>
-    <img src="https://raw.githubusercontent.com/candycanezaeq/George-clicker-/2c9269ce1c159e79a39179138146462138693795/IMG_0199.gif" alt="Fullscreen GIF">
-    
-    <audio autoplay loop>
-        <source src="https://raw.githubusercontent.com/candycanezaeq/George-clicker-/986f3395ab4029be825284a3b444c0efb03c8134/316797__dimbark1__ghostly-whispers.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  <div id="status-bar">
+    <span id="fps">FPS: 60</span>
+  </div>
+  <h1>FLOYD CLICKER V1.3.1</h1>
+  <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
+  <div id="changelog">
+    <p>- Updated background music to a randomized playlist</p>
+    <p>- Added anti-autoclick measures</p>
+    <p>- Replaced "PLS DON'T LEAVE" with inactivity prompt</p>
+    <p>- Updated Discord link</p>
+    <p>- Added permanent watermark</p>
+    <p>- Credits: Candycane (Lead Dev), notmoist (Ideas)</p>
+    <p>- Celebrated v1.3.1 release!</p>
+  </div>
+  <div id="inactivity-message">Are you still there?</div>
+  <h2>Clicks: <span id="counter">0</span></h2>
+  <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" onclick="handleClick(event)">
+
+  <div id="shop-container">
+    <h2>Shop</h2>
+    <!-- Your shop items here -->
+  </div>
+
+  <div id="credits">Made by Candycane</div>
+  <a id="github-embed" href="https://candycanezaeq.github.io/candyhub/" target="_blank">More Dumb Games</a>
+  <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
+  <a id="nautica-bodycam-link" href="https://x.com/tmz/status/1887931219410829743?s=46" target="_blank">NAUTICA BODYCAM VID (censored)</a>
+  <div id="discord-embed" onclick="window.open('https://discord.gg/eMXbNxnUs4', '_blank')">
+    JOIN RENT COLLECTOR'S DISCORD!
+  </div>
+  <button id="reset-btn" onclick="resetGame()">Reset Game</button>
+
+  <!-- Auto-Click Warning -->
+  <div id="auto-click-warning">STOP</div>
+
+  <!-- Watermark -->
+  <div class="watermark">FLOYD CLICKER v1.3.1 by Candycane</div>
+
+  <!-- Song Credit -->
+  <div id="song-credit"></div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" autoplay>
+    <!-- Music sources will be dynamically added -->
+  </audio>
+
+  <script>
+    let clicks = 0;
+    let clickMultiplier = 1;
+    let autoClickRate = 0;
+    let autoClickInterval;
+    let lastClickTime = 0;
+    let clickCount = 0;
+    let upgrades = {};
+    let inactivityTimer;
+
+    // Music playlist with song names
+    const musicPlaylist = [
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/town-talk-made-with-Voicemod.mp3", name: "Town Talk" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/mystic%20cave%20zone.mp3", name: "Mystic Cave Zone" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/Local%20Forecast%20-%20Elevator.mp3", name: "Local Forecast - Elevator" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3", name: "M.U.L.E (Bitblaster Mix)" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3", name: "Lazy Sunday" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/Playground%20of%20the%20Stars.mp3", name: "Playground of the Stars" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/Lemon%20Demon%20-%20The%20Ultimate%20Showdown%20Of%20Ultimate%20Destiny.mp3", name: "The Ultimate Showdown" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/(14)%20Life%20In%20An%20Elevator%20-%20Roblox.mp3", name: "Life In An Elevator" }
+    ];
+
+    // Function to shuffle the playlist
+    function shufflePlaylist(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Show song credit
+    function showSongCredit(songName) {
+      const songCredit = document.getElementById("song-credit");
+      songCredit.textContent = `Now Playing: ${songName}`;
+      songCredit.style.opacity = 1;
+
+      setTimeout(() => {
+        songCredit.style.opacity = 0;
+      }, 2000); // Fade out after 2 seconds
+    }
+
+    // Play random music
+    function playRandomMusic() {
+      const shuffledPlaylist = shufflePlaylist([...musicPlaylist]); // Create a shuffled copy of the playlist
+      const bgMusic = document.getElementById("bg-music");
+
+      let currentTrackIndex = 0;
+
+      const playNextTrack = () => {
+        if (currentTrackIndex >= shuffledPlaylist.length) {
+          currentTrackIndex = 0; // Restart from the beginning
+        }
+        const track = shuffledPlaylist[currentTrackIndex];
+        bgMusic.src = track.src;
+        bgMusic.volume = 0.3;
+        bgMusic.play();
+
+        // Show song credit
+        showSongCredit(track.name);
+
+        currentTrackIndex++;
+      };
+
+      bgMusic.onended = playNextTrack; // Play the next track when the current one ends
+      playNextTrack(); // Start playing the first track
+    }
+
+    // Initialize
+    playRandomMusic();
+    checkInactivity();
+    loadProgress();
+  </script>
 </body>
 </html>
