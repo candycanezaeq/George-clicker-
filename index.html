@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V1.3.1</title>
+  <title>FLOYD CLICKER V1.4</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -235,16 +235,12 @@
   <div id="status-bar">
     <span id="fps">FPS: 60</span>
   </div>
-  <h1>FLOYD CLICKER V1.3.1</h1>
+  <h1>FLOYD CLICKER V1.4</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
-    <p>- Updated background music to a randomized playlist</p>
-    <p>- Added anti-autoclick measures</p>
-    <p>- Replaced "PLS DON'T LEAVE" with inactivity prompt</p>
-    <p>- Updated Discord link</p>
-    <p>- Added permanent watermark</p>
-    <p>- Credits: Candycane (Lead Dev), notmoist (Ideas)</p>
-    <p>- Celebrated v1.3.1 release!</p>
+    <p>- Restored the old shop with a new item: ??? (It's coming soon...)</p>
+    <p>- Added ka-ching sound for successful purchases</p>
+    <p>- Celebrated v1.4 release!</p>
   </div>
   <div id="inactivity-message">Are you still there?</div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -324,6 +320,9 @@
     <div class="shop-item" onclick="buyUpgrade('Phonk Brainrot', 314572800, 46, 23, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0143.gif')">
       Phonk Brainrot (314,572,800 clicks) - +46/click, 23 auto/sec
     </div>
+    <div class="shop-item" onclick="buyUpgrade('???', 9999999999, 0, 0, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
+      ??? (It's coming soon...)
+    </div>
   </div>
 
   <div id="credits">Made by Candycane</div>
@@ -339,14 +338,19 @@
   <div id="auto-click-warning">STOP</div>
 
   <!-- Watermark -->
-  <div class="watermark">FLOYD CLICKER v1.3.1 by Candycane</div>
+  <div class="watermark">FLOYD CLICKER v1.4 by Candycane</div>
 
   <!-- Song Credit -->
   <div id="song-credit"></div>
 
   <!-- Background Music -->
-  <audio id="bg-music" autoplay>
+  <audio id="bg-music" loop autoplay>
     <!-- Music sources will be dynamically added -->
+  </audio>
+
+  <!-- Sound Effects -->
+  <audio id="buy-sound">
+    <source src="https://github.com/candycanezaeq/George-clicker-/blob/ff05fe140711eeb88d06c937ef77619eed571cae/ka-ching.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -482,6 +486,11 @@
         autoClickRate += newAutoClick;
         document.getElementById("counter").textContent = clicks;
         document.getElementById("clicker").src = image;
+
+        // Play ka-ching sound
+        const buySound = document.getElementById("buy-sound");
+        buySound.currentTime = 0;
+        buySound.play();
 
         clearInterval(autoClickInterval);
         autoClickInterval = setInterval(() => {
