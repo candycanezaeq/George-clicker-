@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V1.3</title>
+  <title>FLOYD CLICKER V1.3.1</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -221,7 +221,7 @@
   <div id="status-bar">
     <span id="fps">FPS: 60</span>
   </div>
-  <h1>FLOYD CLICKER V1.3</h1>
+  <h1>FLOYD CLICKER V1.3.1</h1>
   <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
   <div id="changelog">
     <p>- Updated background music to a randomized playlist</p>
@@ -230,7 +230,7 @@
     <p>- Updated Discord link</p>
     <p>- Added permanent watermark</p>
     <p>- Credits: Candycane (Lead Dev), notmoist (Ideas)</p>
-    <p>- Celebrated v1.3 release!</p>
+    <p>- Celebrated v1.3.1 release!</p>
   </div>
   <div id="inactivity-message">Are you still there?</div>
   <h2>Clicks: <span id="counter">0</span></h2>
@@ -325,17 +325,11 @@
   <div id="auto-click-warning">STOP</div>
 
   <!-- Watermark -->
-  <div class="watermark">FLOYD CLICKER v1.3 by Candycane</div>
+  <div class="watermark">FLOYD CLICKER v1.3.1 by Candycane</div>
 
   <!-- Background Music -->
   <audio id="bg-music" loop autoplay>
     <!-- Music sources will be dynamically added -->
-  </audio>
-
-  <!-- Click Sound -->
-  <audio id="click-sound">
-    <source src="https://assets.mixkit.co/active_storage/sfx/3005/3005-preview.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
   </audio>
 
   <script>
@@ -356,8 +350,8 @@
       "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3",
       "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3",
       "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/Playground%20of%20the%20Stars.mp3",
-    "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/Lemon%20Demon%20-%20The%20Ultimate%20Showdown%20Of%20Ultimate%20Destiny.mp3",
-    "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/(14)%20Life%20In%20An%20Elevator%20-%20Roblox.mp3"
+      "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/Lemon%20Demon%20-%20The%20Ultimate%20Showdown%20Of%20Ultimate%20Destiny.mp3",
+      "https://github.com/candycanezaeq/George-clicker-/blob/13db69019d4957f5d249047b997d720872ab8566/(14)%20Life%20In%20An%20Elevator%20-%20Roblox.mp3"
     ];
 
     // Randomize music
@@ -367,6 +361,9 @@
       bgMusic.src = randomTrack;
       bgMusic.volume = 0.3;
       bgMusic.play();
+
+      // Shuffle playlist when the current track ends
+      bgMusic.onended = () => playRandomMusic();
     }
 
     // Inactivity check
@@ -406,11 +403,6 @@
         clickCount = 0;
       }
       lastClickTime = now;
-
-      // Play click sound
-      const clickSound = document.getElementById("click-sound");
-      clickSound.currentTime = 0;
-      clickSound.play();
 
       // Add click effect
       const clickEffect = document.createElement("div");
