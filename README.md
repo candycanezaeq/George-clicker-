@@ -1,0 +1,1 @@
+Do not try to steal my code without telling me I am a single  Dev and please credit me before  making  any videos or anything about  this game or my games if you wish for any content  YOU own to be removed contact me via discord 
