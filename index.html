@@ -370,7 +370,8 @@
       { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/Local%20Forecast%20-%20Elevator.mp3", name: "Local Forecast - Elevator" },
       { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3", name: "M.U.L.E (Bitblaster Mix)" },
       { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3", name: "Lazy Sunday" },
-      { src: "https://github.com/candycanezaeq/George-clicker-/raw/13db69019d4957f5d249047b997d720872ab8566/Playground%20of%20the%20Stars.mp3", name: "Playground of the Stars" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/f900e92e62bf4f01efe26034e64da1500a71e5b0/toby%20fox%20-%20UNDERTALE%20Soundtrack%20-%2055%20Can%20You%20Really%20Call%20This%20A%20Hotel%2C%20I%20Didn't%20Receive%20A%20Mint%20On%20My%20Pillow%20Or%20Anything.mp3", name: "Can You Really Call This A Hotel?" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/f900e92e62bf4f01efe26034e64da1500a71e5b0/Roblox%20Movie%20Maker!.mp3", name: "Roblox Movie Maker!" },
       { src: "https://github.com/candycanezaeq/George-clicker-/raw/13db69019d4957f5d249047b997d720872ab8566/Lemon%20Demon%20-%20The%20Ultimate%20Showdown%20Of%20Ultimate%20Destiny.mp3", name: "The Ultimate Showdown" },
       { src: "https://github.com/candycanezaeq/George-clicker-/raw/13db69019d4957f5d249047b997d720872ab8566/(14)%20Life%20In%20An%20Elevator%20-%20Roblox.mp3", name: "Life In An Elevator" }
     ];
@@ -395,8 +396,8 @@
       }, 2000); // Fade out after 2 seconds
     }
 
-    // Play random music
-    function playRandomMusic() {
+    // Play shuffled music without looping
+    function playShuffledMusic() {
       const shuffledPlaylist = shufflePlaylist([...musicPlaylist]); // Create a shuffled copy of the playlist
       const bgMusic = document.getElementById("bg-music");
 
@@ -404,7 +405,8 @@
 
       const playNextTrack = () => {
         if (currentTrackIndex >= shuffledPlaylist.length) {
-          currentTrackIndex = 0; // Restart from the beginning
+          bgMusic.pause(); // Stop playing when the playlist ends
+          return;
         }
         const track = shuffledPlaylist[currentTrackIndex];
         bgMusic.src = track.src;
@@ -560,7 +562,7 @@
     updateFPS();
 
     // Initialize
-    playRandomMusic();
+    playShuffledMusic(); // Play shuffled music without looping
     checkInactivity();
     loadProgress();
   </script>
