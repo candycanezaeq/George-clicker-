@@ -1,237 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FLOYD CLICKER V1.4</title>
-  <style>
-    /* Previous CSS remains the same */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOYD CLICKER IS DOWN LEAVE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body {
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-  <!-- Previous HTML remains the same -->
-
-  <!-- Background Music -->
-  <audio id="bg-music" loop autoplay>
-    <!-- Music sources will be dynamically added -->
-  </audio>
-
-  <!-- Sound Effects -->
-  <audio id="buy-sound">
-    <source src="https://github.com/candycanezaeq/George-clicker-/raw/ff05fe140711eeb88d06c937ef77619eed571cae/ka-ching.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-    let clicks = 0;
-    let clickMultiplier = 1;
-    let autoClickRate = 0;
-    let autoClickInterval;
-    let lastClickTime = 0;
-    let clickCount = 0;
-    let upgrades = {};
-    let inactivityTimer;
-
-    // Music playlist with song names
-    const musicPlaylist = [
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@2a93377/town-talk-made-with-Voicemod.mp3", name: "Town Talk" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@2a93377/mystic%20cave%20zone.mp3", name: "Mystic Cave Zone" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@2a93377/Local%20Forecast%20-%20Elevator.mp3", name: "Local Forecast - Elevator" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@2a93377/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3", name: "M.U.L.E (Bitblaster Mix)" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@2a93377/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3", name: "Lazy Sunday" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@f900e92/toby%20fox%20-%20UNDERTALE%20Soundtrack%20-%2055%20Can%20You%20Really%20Call%20This%20A%20Hotel%2C%20I%20Didn't%20Receive%20A%20Mint%20On%20My%20Pillow%20Or%20Anything.mp3", name: "Can You Really Call This A Hotel?" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@f900e92/Roblox%20Movie%20Maker!.mp3", name: "Roblox Movie Maker!" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@13db690/Lemon%20Demon%20-%20The%20Ultimate%20Showdown%20Of%20Ultimate%20Destiny.mp3", name: "The Ultimate Showdown" },
-      { src: "https://cdn.jsdelivr.net/gh/candycanezaeq/George-clicker-@13db690/(14)%20Life%20In%20An%20Elevator%20-%20Roblox.mp3", name: "Life In An Elevator" }
-    ];
-
-    // Function to shuffle the playlist
-    function shufflePlaylist(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    // Show song credit
-    function showSongCredit(songName) {
-      const songCredit = document.getElementById("song-credit");
-      songCredit.textContent = `Now Playing: ${songName}`;
-      songCredit.style.opacity = 1;
-
-      setTimeout(() => {
-        songCredit.style.opacity = 0;
-      }, 2000); // Fade out after 2 seconds
-    }
-
-    // Play shuffled music without looping
-    function playShuffledMusic() {
-      const shuffledPlaylist = shufflePlaylist([...musicPlaylist]); // Create a shuffled copy of the playlist
-      const bgMusic = document.getElementById("bg-music");
-
-      let currentTrackIndex = 0;
-
-      const playNextTrack = () => {
-        if (currentTrackIndex >= shuffledPlaylist.length) {
-          bgMusic.pause(); // Stop playing when the playlist ends
-          return;
-        }
-        const track = shuffledPlaylist[currentTrackIndex];
-        bgMusic.src = track.src;
-        bgMusic.volume = 0.3;
-        bgMusic.play();
-
-        // Show song credit
-        showSongCredit(track.name);
-
-        currentTrackIndex++;
-      };
-
-      bgMusic.onended = playNextTrack; // Play the next track when the current one ends
-      playNextTrack(); // Start playing the first track
-    }
-
-    // Inactivity check
-    function checkInactivity() {
-      inactivityTimer = setTimeout(() => {
-        document.getElementById("inactivity-message").style.display = "block";
-      }, 60000); // 1 minute
-    }
-
-    // Reset inactivity timer
-    function resetInactivityTimer() {
-      clearTimeout(inactivityTimer);
-      document.getElementById("inactivity-message").style.display = "none";
-      checkInactivity();
-    }
-
-    // Anti-autoclick measures
-    function handleAutoClick() {
-      if (clickCount >= 5) {
-        document.getElementById("auto-click-warning").style.display = "block";
-        setTimeout(() => {
-          if (clickCount >= 5) {
-            window.location.href = "https://www.indeed.com"; // Redirect to indeed.com
-          }
-        }, 2000);
-      }
-    }
-
-    // Handle click
-    function handleClick(event) {
-      const now = Date.now();
-      if (now - lastClickTime < 100) {
-        clickCount++;
-        handleAutoClick();
-      } else {
-        clickCount = 0;
-      }
-      lastClickTime = now;
-
-      // Add click effect
-      const clickEffect = document.createElement("div");
-      clickEffect.className = "click-effect";
-      clickEffect.style.left = `${event.clientX - 10}px`;
-      clickEffect.style.top = `${event.clientY - 10}px`;
-      document.body.appendChild(clickEffect);
-      setTimeout(() => {
-        clickEffect.remove();
-      }, 500);
-
-      // Increment clicks
-      clicks += clickMultiplier;
-      document.getElementById("counter").textContent = clicks;
-      saveProgress();
-      resetInactivityTimer();
-    }
-
-    // Buy Upgrade (stackable)
-    function buyUpgrade(name, cost, newMultiplier, newAutoClick, image) {
-      if (clicks >= cost) {
-        clicks -= cost;
-        if (!upgrades[name]) upgrades[name] = 0;
-        upgrades[name]++;
-        clickMultiplier += newMultiplier;
-        autoClickRate += newAutoClick;
-        document.getElementById("counter").textContent = clicks;
-        document.getElementById("clicker").src = image;
-
-        // Play ka-ching sound
-        const buySound = document.getElementById("buy-sound");
-        buySound.currentTime = 0;
-        buySound.play();
-
-        clearInterval(autoClickInterval);
-        autoClickInterval = setInterval(() => {
-          clicks += autoClickRate;
-          document.getElementById("counter").textContent = clicks;
-          saveProgress();
-        }, 1000);
-
-        saveProgress();
-      }
-    }
-
-    function toggleChangelog() {
-      let changelog = document.getElementById("changelog");
-      changelog.style.display = (changelog.style.display === "block") ? "none" : "block";
-    }
-
-    // Reset Game
-    function resetGame() {
-      if (confirm("Are you sure you want to reset your progress? This cannot be undone!")) {
-        clicks = 0;
-        clickMultiplier = 1;
-        autoClickRate = 0;
-        document.getElementById("counter").textContent = clicks;
-        document.getElementById("clicker").src = "https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png";
-        clearInterval(autoClickInterval);
-        localStorage.clear();
-      }
-    }
-
-    // Load progress on page load
-    function loadProgress() {
-      const savedClicks = localStorage.getItem('clicks');
-      const savedMultiplier = localStorage.getItem('clickMultiplier');
-      const savedAutoClickRate = localStorage.getItem('autoClickRate');
-      const savedClickerImage = localStorage.getItem('clickerImage');
-      const savedUpgrades = localStorage.getItem('upgrades');
-
-      if (savedClicks) clicks = parseInt(savedClicks, 10);
-      if (savedMultiplier) clickMultiplier = parseInt(savedMultiplier, 10);
-      if (savedAutoClickRate) autoClickRate = parseInt(savedAutoClickRate, 10);
-      if (savedClickerImage) document.getElementById('clicker').src = savedClickerImage;
-      if (savedUpgrades) upgrades = JSON.parse(savedUpgrades);
-
-      document.getElementById('counter').textContent = clicks;
-    }
-
-    // Save progress
-    function saveProgress() {
-      localStorage.setItem('clicks', clicks);
-      localStorage.setItem('clickMultiplier', clickMultiplier);
-      localStorage.setItem('autoClickRate', autoClickRate);
-      localStorage.setItem('clickerImage', document.getElementById('clicker').src);
-      localStorage.setItem('upgrades', JSON.stringify(upgrades));
-    }
-
-    // FPS Counter
-    let lastFrameTime = performance.now();
-    function updateFPS() {
-      const now = performance.now();
-      const delta = now - lastFrameTime;
-      const fps = Math.round(1000 / delta);
-      document.getElementById("fps").textContent = `FPS: ${fps}`;
-      lastFrameTime = now;
-      requestAnimationFrame(updateFPS);
-    }
-    updateFPS();
-
-    // Initialize
-    playShuffledMusic(); // Play shuffled music without looping
-    checkInactivity();
-    loadProgress();
-  </script>
+    <img src="https://raw.githubusercontent.com/candycanezaeq/George-clicker-/2c9269ce1c159e79a39179138146462138693795/IMG_0199.gif" alt="Fullscreen GIF">
+    
+    <audio autoplay loop>
+        <source src="https://raw.githubusercontent.com/candycanezaeq/George-clicker-/986f3395ab4029be825284a3b444c0efb03c8134/316797__dimbark1__ghostly-whispers.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 </body>
 </html>
