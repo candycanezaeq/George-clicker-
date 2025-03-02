@@ -196,17 +196,6 @@
     #reset-btn:hover {
       background: #ff6666;
     }
-    .stop-popup {
-      position: absolute;
-      font-size: 2rem;
-      color: red;
-      font-weight: bold;
-      animation: bounce 0.5s infinite alternate;
-    }
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-20px); }
-    }
     .watermark {
       position: fixed;
       bottom: 5px;
@@ -350,7 +339,7 @@
 
   <!-- Sound Effects -->
   <audio id="buy-sound">
-    <source src="https://github.com/candycanezaeq/George-clicker-/blob/ff05fe140711eeb88d06c937ef77619eed571cae/ka-ching.mp3" type="audio/mpeg">
+    <source src="https://github.com/candycanezaeq/George-clicker-/raw/ff05fe140711eeb88d06c937ef77619eed571cae/ka-ching.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -443,8 +432,7 @@
         document.getElementById("auto-click-warning").style.display = "block";
         setTimeout(() => {
           if (clickCount >= 5) {
-            localStorage.clear();
-            window.close(); // Close the tab
+            window.location.href = "https://www.indeed.com"; // Redirect to indeed.com
           }
         }, 2000);
       }
