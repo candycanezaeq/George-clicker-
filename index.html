@@ -1,35 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLOYD CLICKER IS DOWN LEAVE</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        body {
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        img {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLOYD CLICKER V1.5</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      background-color: #1a1a1a;
+      color: white;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 {
+      animation: pulse 1s infinite alternate;
+      color: #ffcc00;
+      font-size: 2.5rem;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.1); }
+    }
+    #status-bar {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #00ff00;
+    }
+    #inactivity-message {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      color: #ffcc00;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    #clicker {
+      width: 200px;
+      height: 200px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    #clicker:active {
+      transform: scale(0.95);
+    }
+    #shop-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #333;
+      padding: 15px;
+      width: 300px;
+      height: 80vh;
+      text-align: left;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .shop-item {
+      margin: 10px 0;
+      cursor: pointer;
+      background: #444;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background 0.2s ease;
+    }
+    .shop-item:hover {
+      background: #555;
+    }
+    #changelog-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #ffcc00;
+      color: black;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #changelog {
+      display: none;
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      background: white;
+      color: black;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+    }
+    #credits {
+      position: fixed;
+      bottom: 5px;
+      right: 5px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+    }
+    #github-embed {
+      position: fixed;
+      bottom: 30px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #github-embed:hover {
+      text-decoration: underline;
+    }
+    #memorial-link {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #memorial-link:hover {
+      text-decoration: underline;
+    }
+    #nautica-bodycam-link {
+      position: fixed;
+      bottom: 90px;
+      right: 10px;
+      color: #ffcc00;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    #nautica-bodycam-link:hover {
+      text-decoration: underline;
+    }
+    .click-effect {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: clickAnimation 0.5s ease-out;
+    }
+    @keyframes clickAnimation {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    #auto-click-warning {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: red;
+      font-weight: bold;
+      z-index: 1000;
+      animation: flash 0.5s infinite alternate;
+    }
+    @keyframes flash {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    #discord-embed {
+      position: fixed;
+      bottom: 120px;
+      right: 10px;
+      background: #5865F2;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #reset-btn {
+      position: fixed;
+      bottom: 150px;
+      right: 10px;
+      background: #ff4444;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    #reset-btn:hover {
+      background: #ff6666;
+    }
+    .watermark {
+      position: fixed;
+      bottom: 5px;
+      left: 5px;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      user-select: none;
+    }
+    #song-credit {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      color: #ffcc00;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 1000;
+    }
+    #streak-counter {
+      position: fixed;
+      top: 50px;
+      right: 10px;
+      font-size: 1.2rem;
+      color: #ffcc00;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-    <img src="https://raw.githubusercontent.com/candycanezaeq/George-clicker-/2c9269ce1c159e79a39179138146462138693795/IMG_0199.gif" alt="Fullscreen GIF">
-    
-    <audio autoplay loop>
-        <source src="https://raw.githubusercontent.com/candycanezaeq/George-clicker-/986f3395ab4029be825284a3b444c0efb03c8134/316797__dimbark1__ghostly-whispers.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
+  <div id="status-bar">
+    <span id="fps">FPS: 60</span>
+  </div>
+  <h1>FLOYD CLICKER V1.5</h1>
+  <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
+  <div id="changelog">
+    <p>- Removed ka-ching sound effect.</p>
+    <p>- Updated audio playlist with working songs.</p>
+    <p>- Added Click Streak Counter.</p>
+    <p>- Improved anti-auto-click mechanism.</p>
+    <p>- Celebrated v1.5 release!</p>
+  </div>
+  <div id="inactivity-message">Are you still there?</div>
+  <h2>Clicks: <span id="counter">0</span></h2>
+  <h3>Streak: <span id="streak-counter">0</span></h3>
+  <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" onclick="handleClick(event)">
+
+  <div id="shop-container">
+    <h2>Shop</h2>
+    <div class="shop-item" onclick="buyUpgrade('George Droid', 25, 2, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
+      George Droid (25 clicks) - +2/click, 1 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Anne Clank', 75, 4, 2, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png')">
+      Anne Clank (75 clicks) - +4/click, 2 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Ambatatron', 150, 6, 3, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0053.png')">
+      Ambatatron (150 clicks) - +6/click, 3 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('XXXTENTACION', 300, 8, 4, 'https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg')">
+      XXXTENTACION (300 clicks) - +8/click, 4 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Scooby Jew', 600, 10, 5, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0054.jpeg')">
+      Scooby Jew (600 clicks) - +10/click, 5 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Rizzler', 1200, 12, 6, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0055.jpeg')">
+      Rizzler (1,200 clicks) - +12/click, 6 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Low Taper', 2400, 14, 7, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0056.jpeg')">
+      Low Taper (2,400 clicks) - +14/click, 7 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Candycane', 100000000000, 9999999999, 9999999999, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
+      Candycane (100,000,000,000 clicks) - MAX
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Black Guy', 4800, 16, 8, 'https://assets.onecompiler.app/437rezxye/439aekufq/IMG_0164.gif')">
+      Black Guy (4,800 clicks) - +16/click, 8 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Chopped Chin', 9600, 18, 9, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0088.jpeg')">
+      Chopped Chin (9,600 clicks) - +18/click, 9 auto/sec (Unlocks "Chin of Copedness")
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('TS PMO', 19200, 20, 10, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0089.jpeg')">
+      TS PMO (19,200 clicks) - +20/click, 10 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Friggin Packet Yo', 38400, 22, 11, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0090.jpeg')">
+      Friggin Packet Yo (38,400 clicks) - +22/click, 11 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('George Derek Fusion', 76800, 24, 12, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0091.jpeg')">
+      George Derek Fusion (76,800 clicks) - +24/click, 12 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('AI Putin', 153600, 26, 13, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg')">
+      AI Putin (153,600 clicks) - +26/click, 13 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('My Cat', 614400, 28, 14, 'https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png')">
+      My Cat (614,400 clicks) - +28/click, 14 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Skid Kid', 1228800, 30, 15, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0116.jpeg')">
+      Skid Kid (1,228,800 clicks) - +30/click, 15 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Tuff Bear', 2457600, 32, 16, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0127.jpeg')">
+      Tuff Bear (2,457,600 clicks) - +32/click, 16 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Gangsta Simpsons', 4915200, 34, 17, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0128.jpeg')">
+      Gangsta Simpsons (4,915,200 clicks) - +34/click, 17 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Hot Black Guy', 9830400, 36, 18, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0130.jpeg')">
+      Hot Black Guy (9,830,400 clicks) - +36/click, 18 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Grubhub', 19660800, 38, 19, 'https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0131.jpeg')">
+      Grubhub (19,660,800 clicks) - +38/click, 19 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Server Warning', 39321600, 40, 20, 'https://assets.onecompiler.app/437rezxye/438ycydqa/Screenshot_2025-01-06_173218.png')">
+      Server Warning (39,321,600 clicks) - +40/click, 20 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Batatron Floyd Duo', 78643200, 42, 21, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0135.jpeg')">
+      Batatron Floyd Duo (78,643,200 clicks) - +42/click, 21 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Alien', 157286400, 44, 22, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0139.jpeg')">
+      Alien (157,286,400 clicks) - +44/click, 22 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('Phonk Brainrot', 314572800, 46, 23, 'https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0143.gif')">
+      Phonk Brainrot (314,572,800 clicks) - +46/click, 23 auto/sec
+    </div>
+    <div class="shop-item" onclick="buyUpgrade('???', 9999999999, 0, 0, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
+      ??? (It's coming soon...)
+    </div>
+  </div>
+
+  <div id="credits">Made by Candycane</div>
+  <a id="github-embed" href="https://candycanezaeq.github.io/candyhub/" target="_blank">More Dumb Games</a>
+  <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
+  <a id="nautica-bodycam-link" href="https://x.com/tmz/status/1887931219410829743?s=46" target="_blank">NAUTICA BODYCAM VID (censored)</a>
+  <div id="discord-embed" onclick="window.open('https://discord.gg/eMXbNxnUs4', '_blank')">
+    JOIN RENT COLLECTOR'S DISCORD!
+  </div>
+  <button id="reset-btn" onclick="resetGame()">Reset Game</button>
+
+  <!-- Auto-Click Warning -->
+  <div id="auto-click-warning">STOP</div>
+
+  <!-- Watermark -->
+  <div class="watermark">FLOYD CLICKER v1.5 by Candycane</div>
+
+  <!-- Song Credit -->
+  <div id="song-credit"></div>
+
+  <!-- Background Music -->
+  <audio id="bg-music" loop autoplay>
+    <!-- Music sources will be dynamically added -->
+  </audio>
+
+  <script>
+    let clicks = 0;
+    let clickMultiplier = 1;
+    let autoClickRate = 0;
+    let autoClickInterval;
+    let lastClickTime = 0;
+    let clickCount = 0;
+    let clickStreak = 0;
+    let upgrades = {};
+    let inactivityTimer;
+
+    // Music playlist with song names
+    const musicPlaylist = [
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/town-talk-made-with-Voicemod.mp3", name: "Town Talk" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/mystic%20cave%20zone.mp3", name: "Mystic Cave Zone" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/Local%20Forecast%20-%20Elevator.mp3", name: "Local Forecast - Elevator" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3", name: "M.U.L.E (Bitblaster Mix)" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3", name: "Lazy Sunday" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/f900e92e62bf4f01efe26034e64da1500a71e5b0/toby%20fox%20-%20UNDERTALE%20Soundtrack%20-%2055%20Can%20You%20Really%20Call%20This%20A%20Hotel%2C%20I%20Didn't%20Receive%20A%20Mint%20On%20My%20Pillow%20Or%20Anything.mp3", name: "Can You Really Call This A Hotel?" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/f900e92e62bf4f01efe26034e64da1500a71e5b0/Roblox%20Movie%20Maker!.mp3", name: "Roblox Movie Maker!" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/13db69019d4957f5d249047b997d720872ab8566/Lemon%20Demon%20-%20The%20Ultimate%20Showdown%20Of%20Ultimate%20Destiny.mp3", name: "The Ultimate Showdown" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/13db69019d4957f5d249047b997d720872ab8566/(14)%20Life%20In%20An%20Elevator%20-%20Roblox.mp3", name: "Life In An Elevator" }
+    ];
+
+    // Function to shuffle the playlist
+    function shufflePlaylist(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Show song credit
+    function showSongCredit(songName) {
+      const songCredit = document.getElementById("song-credit");
+      songCredit.textContent = `Now Playing: ${songName}`;
+      songCredit.style.opacity = 1;
+
+      setTimeout(() => {
+        songCredit.style.opacity = 0;
+      }, 2000); // Fade out after 2 seconds
+    }
+
+    // Play shuffled music without looping
+    function playShuffledMusic() {
+      const shuffledPlaylist = shufflePlaylist([...musicPlaylist]); // Create a shuffled copy of the playlist
+      const bgMusic = document.getElementById("bg-music");
+
+      let currentTrackIndex = 0;
+
+      const playNextTrack = () => {
+        if (currentTrackIndex >= shuffledPlaylist.length) {
+          bgMusic.pause(); // Stop playing when the playlist ends
+          return;
+        }
+        const track = shuffledPlaylist[currentTrackIndex];
+        bgMusic.src = track.src;
+        bgMusic.volume = 0.3;
+        bgMusic.play();
+
+        // Show song credit
+        showSongCredit(track.name);
+
+        currentTrackIndex++;
+      };
+
+      bgMusic.onended = playNextTrack; // Play the next track when the current one ends
+      playNextTrack(); // Start playing the first track
+    }
+
+    // Inactivity check
+    function checkInactivity() {
+      inactivityTimer = setTimeout(() => {
+        document.getElementById("inactivity-message").style.display = "block";
+      }, 60000); // 1 minute
+    }
+
+    // Reset inactivity timer
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      document.getElementById("inactivity-message").style.display = "none";
+      checkInactivity();
+    }
+
+    // Anti-autoclick measures
+    function handleAutoClick() {
+      if (clickCount >= 5) {
+        document.getElementById("auto-click-warning").style.display = "block";
+        setTimeout(() => {
+          if (clickCount >= 5) {
+            window.location.href = "https://www.indeed.com"; // Redirect to indeed.com
+          }
+        }, 2000);
+      }
+    }
+
+    // Handle click
+    function handleClick(event) {
+      const now = Date.now();
+      if (now - lastClickTime < 100) {
+        clickCount++;
+        clickStreak++;
+        handleAutoClick();
+      } else {
+        clickCount = 0;
+        clickStreak = 0;
+      }
+      lastClickTime = now;
+
+      // Add click effect
+      const clickEffect = document.createElement("div");
+      clickEffect.className = "click-effect";
+      clickEffect.style.left = `${event.clientX - 10}px`;
+      clickEffect.style.top = `${event.clientY - 10}px`;
+      document.body.appendChild(clickEffect);
+      setTimeout(() => {
+        clickEffect.remove();
+      }, 500);
+
+      // Increment clicks
+      clicks += clickMultiplier;
+      document.getElementById("counter").textContent = clicks;
+      document.getElementById("streak-counter").textContent = clickStreak;
+      saveProgress();
+      resetInactivityTimer();
+    }
+
+    // Buy Upgrade (stackable)
+    function buyUpgrade(name, cost, newMultiplier, newAutoClick, image) {
+      if (clicks >= cost) {
+        clicks -= cost;
+        if (!upgrades[name]) upgrades[name] = 0;
+        upgrades[name]++;
+        clickMultiplier += newMultiplier;
+        autoClickRate += newAutoClick;
+        document.getElementById("counter").textContent = clicks;
+        document.getElementById("clicker").src = image;
+
+        clearInterval(autoClickInterval);
+        autoClickInterval = setInterval(() => {
+          clicks += autoClickRate;
+          document.getElementById("counter").textContent = clicks;
+          saveProgress();
+        }, 1000);
+
+        saveProgress();
+      }
+    }
+
+    function toggleChangelog() {
+      let changelog = document.getElementById("changelog");
+      changelog.style.display = (changelog.style.display === "block") ? "none" : "block";
+    }
+
+    // Reset Game
+    function resetGame() {
+      if (confirm("Are you sure you want to reset your progress? This cannot be undone!")) {
+        clicks = 0;
+        clickMultiplier = 1;
+        autoClickRate = 0;
+        document.getElementById("counter").textContent = clicks;
+        document.getElementById("clicker").src = "https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png";
+        clearInterval(autoClickInterval);
+        localStorage.clear();
+      }
+    }
+
+    // Load progress on page load
+    function loadProgress() {
+      const savedClicks = localStorage.getItem('clicks');
+      const savedMultiplier = localStorage.getItem('clickMultiplier');
+      const savedAutoClickRate = localStorage.getItem('autoClickRate');
+      const savedClickerImage = localStorage.getItem('clickerImage');
+      const savedUpgrades = localStorage.getItem('upgrades');
+
+      if (savedClicks) clicks = parseInt(savedClicks, 10);
+      if (savedMultiplier) clickMultiplier = parseInt(savedMultiplier, 10);
+      if (savedAutoClickRate) autoClickRate = parseInt(savedAutoClickRate, 10);
+      if (savedClickerImage) document.getElementById('clicker').src = savedClickerImage;
+      if (savedUpgrades) upgrades = JSON.parse(savedUpgrades);
+
+      document.getElementById('counter').textContent = clicks;
+    }
+
+    // Save progress
+    function saveProgress() {
+      localStorage.setItem('clicks', clicks);
+      localStorage.setItem('clickMultiplier', clickMultiplier);
+      localStorage.setItem('autoClickRate', autoClickRate);
+      localStorage.setItem('clickerImage', document.getElementById('clicker').src);
+      localStorage.setItem('upgrades', JSON.stringify(upgrades));
+    }
+
+    // FPS Counter
+    let lastFrameTime = performance.now();
+    function updateFPS() {
+      const now = performance.now();
+      const delta = now - lastFrameTime;
+      const fps = Math.round(1000 / delta);
+      document.getElementById("fps").textContent = `FPS: ${fps}`;
+      lastFrameTime = now;
+      requestAnimationFrame(updateFPS);
+    }
+    updateFPS();
+
+    // Initialize
+    playShuffledMusic(); // Play shuffled music without looping
+    checkInactivity();
+    loadProgress();
+  </script>
 </body>
 </html>
