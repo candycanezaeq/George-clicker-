@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,39 +18,19 @@
       animation: pulse 1s infinite alternate;
       color: #ffcc00;
       font-size: 2.5rem;
+      margin: 20px 0;
     }
     @keyframes pulse {
       0% { transform: scale(1); }
       100% { transform: scale(1.1); }
-    }
-    #status-bar {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 14px;
-      color: #00ff00;
-    }
-    #inactivity-message {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.5rem;
-      color: #ffcc00;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      z-index: 1000;
     }
     #clicker {
       width: 200px;
       height: 200px;
       cursor: pointer;
       transition: transform 0.1s ease;
+      position: relative;
+      z-index: 2;
     }
     #clicker:active {
       transform: scale(0.95);
@@ -62,17 +43,17 @@
       padding: 15px;
       width: 300px;
       height: 80vh;
-      text-align: left;
       overflow-y: auto;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      text-align: left;
     }
     .shop-item {
       margin: 10px 0;
-      cursor: pointer;
-      background: #444;
       padding: 10px;
+      background: #444;
       border-radius: 5px;
+      cursor: pointer;
       transition: background 0.2s ease;
     }
     .shop-item:hover {
@@ -86,75 +67,49 @@
       padding: 15px;
       width: 300px;
       height: 80vh;
-      text-align: left;
       overflow-y: auto;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      text-align: left;
     }
-    .companion {
+    .companion-card {
       margin: 10px 0;
-      background: #444;
       padding: 10px;
+      background: #444;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+    .companion-card img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
       border-radius: 5px;
     }
     #companions-orbit {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       width: 300px;
       height: 300px;
+      pointer-events: none;
     }
     .companion-orbiting {
       position: absolute;
       width: 50px;
       height: 50px;
-      border-radius: 50%;
-      animation: orbit 5s linear infinite;
+      animation: orbit 10s linear infinite;
+      image-rendering: pixelated;
     }
     @keyframes orbit {
       from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
-      to { transform: rotate(360deg) translateX(150px) rotate(360deg); }
+      to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
     }
-    #credits {
-      position: fixed;
-      bottom: 5px;
-      right: 5px;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 12px;
-    }
-    #github-embed {
-      position: fixed;
-      bottom: 30px;
-      right: 10px;
+    #counter {
+      font-size: 2rem;
       color: #ffcc00;
-      font-size: 14px;
-      text-decoration: none;
-    }
-    #github-embed:hover {
-      text-decoration: underline;
-    }
-    #memorial-link {
-      position: fixed;
-      bottom: 60px;
-      right: 10px;
-      color: #ffcc00;
-      font-size: 14px;
-      text-decoration: none;
-    }
-    #memorial-link:hover {
-      text-decoration: underline;
-    }
-    #nautica-bodycam-link {
-      position: fixed;
-      bottom: 90px;
-      right: 10px;
-      color: #ffcc00;
-      font-size: 14px;
-      text-decoration: none;
-    }
-    #nautica-bodycam-link:hover {
-      text-decoration: underline;
+      margin: 20px 0;
     }
     .click-effect {
       position: absolute;
@@ -169,54 +124,17 @@
       0% { transform: scale(0); opacity: 1; }
       100% { transform: scale(2); opacity: 0; }
     }
-    #auto-click-warning {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3rem;
-      color: red;
-      font-weight: bold;
-      z-index: 1000;
-      animation: flash 0.5s infinite alternate;
-    }
-    @keyframes flash {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-    #discord-embed {
-      position: fixed;
-      bottom: 120px;
-      right: 10px;
-      background: #5865F2;
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
     #reset-btn {
       position: fixed;
-      bottom: 150px;
-      right: 10px;
+      bottom: 20px;
+      right: 20px;
       background: #ff4444;
       color: white;
       border: none;
-      padding: 8px 12px;
-      cursor: pointer;
+      padding: 10px 20px;
       border-radius: 5px;
+      cursor: pointer;
       font-weight: bold;
-    }
-    #reset-btn:hover {
-      background: #ff6666;
-    }
-    .watermark {
-      position: fixed;
-      bottom: 5px;
-      left: 5px;
-      color: rgba(255, 255, 255, 0.3);
-      font-size: 12px;
-      user-select: none;
     }
     #song-credit {
       position: fixed;
@@ -232,37 +150,15 @@
       transition: opacity 0.5s ease-in-out;
       z-index: 1000;
     }
-    #streak-counter {
-      position: fixed;
-      top: 50px;
-      right: 10px;
-      font-size: 1.2rem;
-      color: #ffcc00;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 10px 20px;
-      border-radius: 5px;
-    }
   </style>
 </head>
 <body>
-  <div id="status-bar">
-    <span id="fps">FPS: 60</span>
-  </div>
   <h1>FLOYD CLICKER V1.7</h1>
-  <button id="changelog-btn" onclick="toggleChangelog()">Changelog</button>
-  <div id="changelog">
-    <p>- Separated upgrades and companions.</p>
-    <p>- Added companions drawer.</p>
-    <p>- Updated to v1.7.</p>
-  </div>
-  <div id="inactivity-message">Are you still there?</div>
-  <h2>Clicks: <span id="counter">0</span></h2>
-  <h3>Streak: <span id="streak-counter">0</span></h3>
-  <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" onclick="handleClick(event)">
-
+  <div id="counter">0</div>
+  
   <div id="shop-container">
-    <h2>Shop</h2>
-    <div class="shop-item" onclick="buyUpgrade('George Droid', 25, 2, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
+    <h2>Upgrades Shop</h2>
+   <div class="shop-item" onclick="buyUpgrade('George Droid', 25, 2, 1, 'https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg')">
       George Droid (25 clicks) - +2/click, 1 auto/sec
     </div>
     <div class="shop-item" onclick="buyUpgrade('Anne Clank', 75, 4, 2, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png')">
@@ -337,175 +233,250 @@
     <div class="shop-item" onclick="buyUpgrade('???', 9999999999, 0, 0, 'https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png')">
       ??? (It's coming soon...)
     </div> 
-    <!-- Upgrades go here -->
+    
+    <h2>Companions Shop</h2>
+    <div class="shop-item" onclick="buyCompanion('beer')">
+      Beer 🍺 (10,000 clicks) - 2x Auto-Click
+    </div>
+    <div class="shop-item" onclick="buyCompanion('lilUglyDude')">
+      Lil Ugly Dude (50,000 clicks) - +20/click
+    </div>
+    <div class="shop-item" onclick="buyCompanion('lebron')">
+      LeBron (300,000 clicks) - Faster Auto-Click
+    </div>
+    <div class="shop-item" onclick="buyCompanion('hoodIrony')">
+      Hood Irony (800,000 clicks) - +50k/min
+    </div>
+    <div class="shop-item" onclick="buyCompanion('myCat')">
+      My Cat (400,000 clicks) - Chance for 1k clicks
+    </div>
+    <div class="shop-item" onclick="buyCompanion('candycane')">
+      Candycane (1,000,000 clicks) - 50k Gamble
+    </div>
   </div>
 
   <div id="companions-drawer">
-    <h2>Companions</h2>
+    <h2>Your Companions</h2>
     <div id="companions-list"></div>
   </div>
 
   <div id="companions-orbit"></div>
-
-  <div id="credits">Made by Candycane</div>
-  <a id="github-embed" href="https://candycanezaeq.github.io/candyhub/" target="_blank">More Dumb Games</a>
-  <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557" target="_blank">Nautica Malone Memorial</a>
-  <a id="nautica-bodycam-link" href="https://x.com/tmz/status/1887931219410829743?s=46" target="_blank">NAUTICA BODYCAM VID (censored)</a>
-  <div id="discord-embed" onclick="window.open('https://discord.gg/eMXbNxnUs4', '_blank')">
-    JOIN RENT COLLECTOR'S DISCORD!
-  </div>
+  <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" onclick="handleClick(event)">
+  
   <button id="reset-btn" onclick="resetGame()">Reset Game</button>
 
-  <!-- Auto-Click Warning -->
-  <div id="auto-click-warning">STOP</div>
-
-  <!-- Watermark -->
-  <div class="watermark">FLOYD CLICKER v1.7 by Candycane</div>
-
-  <!-- Song Credit -->
   <div id="song-credit"></div>
-
-  <!-- Background Music -->
-  <audio id="bg-music" autoplay>
-    <!-- Music sources will be dynamically added -->
-  </audio>
+  <audio id="bg-music" autoplay></audio>
 
   <script>
     let clicks = 0;
     let clickMultiplier = 1;
     let autoClickRate = 0;
-    let autoClickInterval;
-    let lastClickTime = 0;
-    let clickCount = 0;
-    let clickStreak = 0;
     let upgrades = {};
     let companions = {};
-    let inactivityTimer;
 
-    const companionsData = {
+    const companionData = {
       beer: {
         name: "Beer",
         cost: 10000,
-        image: "https://github.com/candycanezaeq/George-clicker-/raw/597b50e2457462414d7f56480f080913570e64a5/IMG_0060.png",
-        bonus: "2x auto-clicking",
+        image: "https://raw.githubusercontent.com/candycanezaeq/George-clicker-/597b50e2457462414d7f56480f080913570e64a5/IMG_0060.png",
+        effect: () => autoClickRate *= 2
       },
       lilUglyDude: {
         name: "Lil Ugly Dude",
         cost: 50000,
-        image: "https://github.com/candycanezaeq/George-clicker-/raw/597b50e2457462414d7f56480f080913570e64a5/IMG_0153.jpeg",
-        bonus: "+20 clicks per click",
+        image: "https://raw.githubusercontent.com/candycanezaeq/George-clicker-/597b50e2457462414d7f56480f080913570e64a5/IMG_0153.jpeg",
+        effect: () => clickMultiplier += 20
       },
       lebron: {
         name: "LeBron",
         cost: 300000,
-        image: "https://github.com/candycanezaeq/George-clicker-/raw/597b50e2457462414d7f56480f080913570e64a5/IMG_0173.png",
-        bonus: "Faster auto-clicking",
+        image: "https://raw.githubusercontent.com/candycanezaeq/George-clicker-/597b50e2457462414d7f56480f080913570e64a5/IMG_0173.png",
+        effect: () => setInterval(autoClick, 500)
       },
       hoodIrony: {
         name: "Hood Irony",
         cost: 800000,
-        image: "https://github.com/candycanezaeq/George-clicker-/raw/597b50e2457462414d7f56480f080913570e64a5/IMG_0212.gif",
-        bonus: "50k bonus clicks every minute",
+        image: "https://raw.githubusercontent.com/candycanezaeq/George-clicker-/597b50e2457462414d7f56480f080913570e64a5/IMG_0212.gif",
+        effect: () => setInterval(() => { clicks += 50000; updateDisplay() }, 60000)
       },
       myCat: {
         name: "My Cat",
         cost: 400000,
-        image: "https://github.com/candycanezaeq/George-clicker-/raw/597b50e2457462414d7f56480f080913570e64a5/IMG_0093.png",
-        bonus: "Chance to give 1k clicks",
+        image: "https://raw.githubusercontent.com/candycanezaeq/George-clicker-/597b50e2457462414d7f56480f080913570e64a5/IMG_0093.png",
+        effect: () => {} // Handled in click handler
       },
       candycane: {
         name: "Candycane",
         cost: 1000000,
-        image: "https://github.com/candycanezaeq/George-clicker-/raw/597b50e2457462414d7f56480f080913570e64a5/IMG_0057.png",
-        bonus: "Gamble 50k clicks",
-      },
+        image: "https://raw.githubusercontent.com/candycanezaeq/George-clicker-/597b50e2457462414d7f56480f080913570e64a5/IMG_0057.png",
+        effect: () => {
+          if(Math.random() < 0.5) clicks += 50000;
+          else clicks = Math.max(0, clicks - 50000);
+          updateDisplay();
+        }
+      }
     };
 
-    // Function to buy a companion
-    function buyCompanion(companionKey) {
-      const companion = companionsData[companionKey];
-      if (clicks >= companion.cost) {
-        clicks -= companion.cost;
-        companions[companionKey] = true;
-        updateCompanionsDrawer();
-        addCompanionToOrbit(companion);
+    const musicPlaylist = [
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/town-talk-made-with-Voicemod.mp3", name: "Town Talk" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/mystic%20cave%20zone.mp3", name: "Mystic Cave Zone" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/Local%20Forecast%20-%20Elevator.mp3", name: "Local Forecast - Elevator" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/12.%20M.U.L.E%20(Bitblaster%20Mix).mp3", name: "M.U.L.E (Bitblaster Mix)" },
+      { src: "https://github.com/candycanezaeq/George-clicker-/raw/2a93377cdc6a823d5a7cb859a1e9460eafa13817/02%20-%20Duncan%20Lamont%20-%20Lazy%20Sunday.mp3", name: "Lazy Sunday" }
+    ];
+
+    function shufflePlaylist(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function showSongCredit(songName) {
+      const songCredit = document.getElementById("song-credit");
+      songCredit.textContent = `Now Playing: ${songName}`;
+      songCredit.style.opacity = 1;
+      setTimeout(() => songCredit.style.opacity = 0, 2000);
+    }
+
+    function playShuffledMusic() {
+      const shuffled = shufflePlaylist([...musicPlaylist]);
+      const bgMusic = document.getElementById("bg-music");
+      let currentTrack = 0;
+
+      function playNext() {
+        if(currentTrack >= shuffled.length) {
+          shuffled = shufflePlaylist([...musicPlaylist]);
+          currentTrack = 0;
+        }
+        
+        bgMusic.src = shuffled[currentTrack].src;
+        bgMusic.volume = 0.3;
+        bgMusic.play();
+        showSongCredit(shuffled[currentTrack].name);
+        
+        bgMusic.onended = () => {
+          currentTrack++;
+          playNext();
+        };
+      }
+      
+      playNext();
+    }
+
+    function handleClick(event) {
+      const clickEffect = document.createElement("div");
+      clickEffect.className = "click-effect";
+      clickEffect.style.left = `${event.clientX - 10}px`;
+      clickEffect.style.top = `${event.clientY - 10}px`;
+      document.body.appendChild(clickEffect);
+      setTimeout(() => clickEffect.remove(), 500);
+
+      clicks += clickMultiplier;
+      
+      if(companions.myCat && Math.random() < 0.1) {
+        clicks += 1000;
+      }
+      
+      updateDisplay();
+      saveProgress();
+    }
+
+    function buyUpgrade(name, cost, multiplier, auto) {
+      if (clicks >= cost) {
+        clicks -= cost;
+        clickMultiplier += multiplier;
+        autoClickRate += auto;
+        upgrades[name] = (upgrades[name] || 0) + 1;
+        updateDisplay();
         saveProgress();
       }
     }
 
-    // Function to update the companions drawer
+    function buyCompanion(key) {
+      const companion = companionData[key];
+      if (clicks >= companion.cost && !companions[key]) {
+        clicks -= companion.cost;
+        companions[key] = true;
+        
+        companion.effect();
+        
+        const orbit = document.getElementById("companions-orbit");
+        const img = document.createElement("img");
+        img.src = companion.image;
+        img.className = "companion-orbiting";
+        orbit.appendChild(img);
+
+        updateCompanionsDrawer();
+        updateDisplay();
+        saveProgress();
+      }
+    }
+
     function updateCompanionsDrawer() {
-      const companionsList = document.getElementById("companions-list");
-      companionsList.innerHTML = "";
+      const list = document.getElementById("companions-list");
+      list.innerHTML = ""; // Clear the list before updating
       for (const key in companions) {
         if (companions[key]) {
-          const companion = companionsData[key];
-          const companionDiv = document.createElement("div");
-          companionDiv.className = "companion";
-          companionDiv.textContent = `${companion.name}: ${companion.bonus}`;
-          companionsList.appendChild(companionDiv);
+          const companion = companionData[key];
+          const card = document.createElement("div");
+          card.className = "companion-card";
+          card.innerHTML = `
+            <img src="${companion.image}" alt="${companion.name}">
+            <div>
+              <strong>${companion.name}</strong><br>
+              ${companion.effect.toString()}
+            </div>
+          `;
+          list.appendChild(card);
         }
       }
     }
 
-    // Function to add a companion to the orbit
-    function addCompanionToOrbit(companion) {
-      const orbit = document.getElementById("companions-orbit");
-      const companionDiv = document.createElement("img");
-      companionDiv.src = companion.image;
-      companionDiv.className = "companion-orbiting";
-      orbit.appendChild(companionDiv);
+    function autoClick() {
+      clicks += autoClickRate;
+      updateDisplay();
+      saveProgress();
     }
 
-    // Function to handle companion bonuses
-    function applyCompanionBonuses() {
-      if (companions.beer) {
-        autoClickRate *= 2;
-      }
-      if (companions.lilUglyDude) {
-        clickMultiplier += 20;
-      }
-      if (companions.lebron) {
-        clearInterval(autoClickInterval);
-        autoClickInterval = setInterval(() => {
-          clicks += autoClickRate;
-          document.getElementById("counter").textContent = clicks;
-          saveProgress();
-        }, 500); // Faster auto-clicking
-      }
-      if (companions.hoodIrony) {
-        setInterval(() => {
-          clicks += 50000;
-          document.getElementById("counter").textContent = clicks;
-          saveProgress();
-        }, 60000); // 50k bonus every minute
-      }
-      if (companions.myCat) {
-        if (Math.random() < 0.1) { // 10% chance
-          clicks += 1000;
-          document.getElementById("counter").textContent = clicks;
-          saveProgress();
-        }
-      }
-      if (companions.candycane) {
-        if (Math.random() < 0.5) { // 50% chance
-          clicks += 50000;
-        } else {
-          clicks -= 50000;
-        }
-        document.getElementById("counter").textContent = clicks;
-        saveProgress();
-      }
+    function updateDisplay() {
+      document.getElementById("counter").textContent = clicks;
     }
 
-    // Previous functions (handleClick, buyUpgrade, etc.) remain the same
+    function saveProgress() {
+      localStorage.setItem("clicks", clicks);
+      localStorage.setItem("upgrades", JSON.stringify(upgrades));
+      localStorage.setItem("companions", JSON.stringify(companions));
+    }
+
+    function loadProgress() {
+      clicks = parseInt(localStorage.getItem("clicks")) || 0;
+      upgrades = JSON.parse(localStorage.getItem("upgrades")) || {};
+      companions = JSON.parse(localStorage.getItem("companions")) || {};
+      
+      for(const key in companions) {
+        if(companions[key]) {
+          companionData[key].effect();
+          buyCompanion(key); // Visual recreation
+        }
+      }
+      updateCompanionsDrawer(); // Update the drawer on load
+      updateDisplay();
+    }
+
+    function resetGame() {
+      if(confirm("Are you sure? This will delete all progress!")) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
 
     // Initialize
-    updateCompanionsDrawer();
-    applyCompanionBonuses();
-    playShuffledMusic();
-    checkInactivity();
     loadProgress();
+    setInterval(autoClick, 1000);
+    playShuffledMusic();
   </script>
 </body>
 </html>
