@@ -1,0 +1,77 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLOYD CLICKER V2.0</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" type="module"></script>
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <div id="status-bar">
+    <span id="fps">FPS: 60</span>
+  </div>
+  <h1>FLOYD CLICKER V2.0</h1>
+  <button id="changelog-btn">Changelog</button>
+  <div id="changelog">
+    <h3>Version 2.1</h3>
+    <ul>
+      <li>Added love letter notification system</li>
+      <li>Fixed shop functionality issues</li>
+      <li>Improved music playback reliability</li>
+      <li>Added visual feedback for purchases</li>
+      <li>Fixed changelog toggle</li>
+    </ul>
+    <h3>Version 2.0</h3>
+    <ul>
+      <li>Complete shop overhaul with dedicated shop page</li>
+      <li>Added visual effects for purchases</li>
+      <li>Added new shop music</li>
+      <li>Improved shop UI with item counts</li>
+      <li>Added settings panel with volume controls</li>
+      <li>Added visual feedback when buying items</li>
+      <li>Improved mobile responsiveness</li>
+      <li>Added streak system improvements</li>
+      <li>Enhanced anti-auto-click detection</li>
+    </ul>
+    <h3>Version 1.5</h3>
+    <ul>
+      <li>Removed ka-ching sound effect</li>
+      <li>Updated audio playlist</li>
+      <li>Added Click Streak Counter</li>
+      <li>Improved anti-auto-click mechanism</li>
+    </ul>
+  </div>
+  <div id="inactivity-message">Are you still there?</div>
+  <h2>Clicks: <span id="counter">0</span></h2>
+  <h3>Streak: <span id="streak-counter">0</span></h3>
+  <img id="clicker" src="https://assets.onecompiler.app/437rezxye/437y3emvn/IMG_0030.png" alt="Click Me">
+  <button id="shop-btn">Go to Shop</button>
+
+  <div id="credits">Made by Candycane</div>
+  <a id="github-embed" href="https://candycanezaeq.github.io/candyhub/" target="_blank">More Dumb Games</a>
+  <a id="memorial-link" href="https://www.hansenmortuary.com/obituaries/Nautica-Thaddeus-Furches-Malone?obId=34753557"
+    target="_blank">Nautica Malone Memorial</a>
+  <a id="nautica-bodycam-link" href="https://x.com/tmz/status/1887931219410829743?s=46"
+    target="_blank">NAUTICA BODYCAM VID (censored)</a>
+  <div id="discord-embed" onclick="window.open('https://discord.gg/eMXbNxnUs4', '_blank')">
+    JOIN RENT COLLECTOR'S DISCORD!
+  </div>
+  <button id="reset-btn">Reset Game</button>
+
+  <div id="auto-click-warning">STOP</div>
+  <div class="watermark">FLOYD CLICKER v2.0 by Candycane</div>
+  <div id="song-credit"></div>
+
+  <audio id="bg-music" loop autoplay></audio>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
+
+</html>

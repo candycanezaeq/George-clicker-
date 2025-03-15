@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floyd Clicker - Shop</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="shop.css">
+  <script src="shop.js" type="module"></script>
+</head>
+
+<body>
+  <button id="back-btn">Back to Game</button>
+  <div class="shop-grid">
+    <div class="shop-item" data-name="George Droid" data-cost="25" data-multiplier="2" data-autoclick="1" data-image="https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/437y3ukaz/IMG_0031.jpeg" alt="George Droid">
+      </div>
+      <div class="shop-item-content">
+        <h3>George Droid</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+2/click</div>
+          <div class="autoclick">1 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">25 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Anne Clank" data-cost="75" data-multiplier="4" data-autoclick="2" data-image="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0052.png" alt="Anne Clank">
+      </div>
+      <div class="shop-item-content">
+        <h3>Anne Clank</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+4/click</div>
+          <div class="autoclick">2 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">75 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Ambatatron" data-cost="150" data-multiplier="6" data-autoclick="3" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0053.png">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0053.png" alt="Ambatatron">
+      </div>
+      <div class="shop-item-content">
+        <h3>Ambatatron</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+6/click</div>
+          <div class="autoclick">3 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">150 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="XXXTENTACION" data-cost="300" data-multiplier="8" data-autoclick="4" data-image="https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385rp2gn/IMG_0058.jpeg" alt="XXXTENTACION">
+      </div>
+      <div class="shop-item-content">
+        <h3>XXXTENTACION</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+8/click</div>
+          <div class="autoclick">4 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">300 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Scooby Jew" data-cost="600" data-multiplier="10" data-autoclick="5" data-image="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0054.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0054.jpeg" alt="Scooby Jew">
+      </div>
+      <div class="shop-item-content">
+        <h3>Scooby Jew</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+10/click</div>
+          <div class="autoclick">5 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">600 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Rizzler" data-cost="1200" data-multiplier="12" data-autoclick="6" data-image="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0055.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0055.jpeg" alt="Rizzler">
+      </div>
+      <div class="shop-item-content">
+        <h3>Rizzler</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+12/click</div>
+          <div class="autoclick">6 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">1,200 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Low Taper" data-cost="2400" data-multiplier="14" data-autoclick="7" data-image="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0056.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0056.jpeg" alt="Low Taper">
+      </div>
+      <div class="shop-item-content">
+        <h3>Low Taper</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+14/click</div>
+          <div class="autoclick">7 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">2,400 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Candycane" data-cost="100000000000" data-multiplier="9999999999" data-autoclick="9999999999" data-image="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png" alt="Candycane">
+      </div>
+      <div class="shop-item-content">
+        <h3>Candycane</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+9999999999/click</div>
+          <div class="autoclick">9999999999 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">100,000,000,000 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Black Guy" data-cost="4800" data-multiplier="16" data-autoclick="8" data-image="https://assets.onecompiler.app/437rezxye/439aekufq/IMG_0164.gif">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/439aekufq/IMG_0164.gif" alt="Black Guy">
+      </div>
+      <div class="shop-item-content">
+        <h3>Black Guy</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+16/click</div>
+          <div class="autoclick">8 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">4,800 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Chopped Chin" data-cost="9600" data-multiplier="18" data-autoclick="9" data-image="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0088.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0088.jpeg" alt="Chopped Chin">
+      </div>
+      <div class="shop-item-content">
+        <h3>Chopped Chin</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+18/click</div>
+          <div class="autoclick">9 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">9,600 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="TS PMO" data-cost="19200" data-multiplier="20" data-autoclick="10" data-image="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0089.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0089.jpeg" alt="TS PMO">
+      </div>
+      <div class="shop-item-content">
+        <h3>TS PMO</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+20/click</div>
+          <div class="autoclick">10 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">19,200 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Friggin Packet Yo" data-cost="38400" data-multiplier="22" data-autoclick="11" data-image="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0090.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0090.jpeg" alt="Friggin Packet Yo">
+      </div>
+      <div class="shop-item-content">
+        <h3>Friggin Packet Yo</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+22/click</div>
+          <div class="autoclick">11 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">38,400 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="George Derek Fusion" data-cost="76800" data-multiplier="24" data-autoclick="12" data-image="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0091.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0091.jpeg" alt="George Derek Fusion">
+      </div>
+      <div class="shop-item-content">
+        <h3>George Derek Fusion</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+24/click</div>
+          <div class="autoclick">12 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">76,800 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="AI Putin" data-cost="153600" data-multiplier="26" data-autoclick="13" data-image="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0092.jpeg" alt="AI Putin">
+      </div>
+      <div class="shop-item-content">
+        <h3>AI Putin</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+26/click</div>
+          <div class="autoclick">13 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">153,600 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="My Cat" data-cost="614400" data-multiplier="28" data-autoclick="14" data-image="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438aaxqjb/IMG_0093.png" alt="My Cat">
+      </div>
+      <div class="shop-item-content">
+        <h3>My Cat</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+28/click</div>
+          <div class="autoclick">14 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">614,400 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Skid Kid" data-cost="1228800" data-multiplier="30" data-autoclick="15" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0116.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0116.jpeg" alt="Skid Kid">
+      </div>
+      <div class="shop-item-content">
+        <h3>Skid Kid</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+30/click</div>
+          <div class="autoclick">15 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">1,228,800 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Tuff Bear" data-cost="2457600" data-multiplier="32" data-autoclick="16" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0127.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0127.jpeg" alt="Tuff Bear">
+      </div>
+      <div class="shop-item-content">
+        <h3>Tuff Bear</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+32/click</div>
+          <div class="autoclick">16 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">2,457,600 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Gangsta Simpsons" data-cost="4915200" data-multiplier="34" data-autoclick="17" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0128.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0128.jpeg" alt="Gangsta Simpsons">
+      </div>
+      <div class="shop-item-content">
+        <h3>Gangsta Simpsons</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+34/click</div>
+          <div class="autoclick">17 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">4,915,200 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Hot Black Guy" data-cost="9830400" data-multiplier="36" data-autoclick="18" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0130.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0130.jpeg" alt="Hot Black Guy">
+      </div>
+      <div class="shop-item-content">
+        <h3>Hot Black Guy</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+36/click</div>
+          <div class="autoclick">18 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">9,830,400 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Grubhub" data-cost="19660800" data-multiplier="38" data-autoclick="19" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0131.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/IMG_0131.jpeg" alt="Grubhub">
+      </div>
+      <div class="shop-item-content">
+        <h3>Grubhub</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+38/click</div>
+          <div class="autoclick">19 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">19,660,800 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Server Warning" data-cost="39321600" data-multiplier="40" data-autoclick="20" data-image="https://assets.onecompiler.app/437rezxye/438ycydqa/Screenshot_2025-01-06_173218.png">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ycydqa/Screenshot_2025-01-06_173218.png" alt="Server Warning">
+      </div>
+      <div class="shop-item-content">
+        <h3>Server Warning</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+40/click</div>
+          <div class="autoclick">20 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">39,321,600 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Batatron Floyd Duo" data-cost="78643200" data-multiplier="42" data-autoclick="21" data-image="https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0135.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0135.jpeg" alt="Batatron Floyd Duo">
+      </div>
+      <div class="shop-item-content">
+        <h3>Batatron Floyd Duo</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+42/click</div>
+          <div class="autoclick">21 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">78,643,200 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Alien" data-cost="157286400" data-multiplier="44" data-autoclick="22" data-image="https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0139.jpeg">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0139.jpeg" alt="Alien">
+      </div>
+      <div class="shop-item-content">
+        <h3>Alien</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+44/click</div>
+          <div class="autoclick">22 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">157,286,400 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="Phonk Brainrot" data-cost="314572800" data-multiplier="46" data-autoclick="23" data-image="https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0143.gif">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/438ze2jk7/IMG_0143.gif" alt="Phonk Brainrot">
+      </div>
+      <div class="shop-item-content">
+        <h3>Phonk Brainrot</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+46/click</div>
+          <div class="autoclick">23 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">314,572,800 clicks</div>
+      </div>
+    </div>
+    <div class="shop-item" data-name="???" data-cost="9999999999" data-multiplier="0" data-autoclick="0" data-image="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png">
+      <div class="shop-item-image">
+        <img src="https://assets.onecompiler.app/437rezxye/4385raew9/IMG_0057.png" alt="???">
+      </div>
+      <div class="shop-item-content">
+        <h3>???</h3>
+        <div class="shop-item-info">
+          <div class="multiplier">+0/click</div>
+          <div class="autoclick">0 auto/sec</div>
+        </div>
+        <div class="shop-item-cost">It's coming soon...</div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

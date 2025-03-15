@@ -1,0 +1,333 @@
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background-color: #1a1a1a;
+  color: white;
+  margin: 0;
+  overflow: hidden;
+}
+
+h1 {
+  animation: pulse 1s infinite alternate;
+  color: #ffcc00;
+  font-size: 2.5rem;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+#status-bar {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #00ff00;
+  z-index: 100;
+}
+
+#inactivity-message {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: #ffcc00;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+#clicker {
+  width: 200px;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+#clicker:active {
+  transform: scale(0.95);
+}
+
+#changelog-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: #ffcc00;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  z-index: 100;
+}
+
+#changelog {
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  background: #333;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+#credits {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+#github-embed {
+  position: fixed;
+  bottom: 30px;
+  right: 10px;
+  color: #ffcc00;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+#github-embed:hover {
+  text-decoration: underline;
+}
+
+#memorial-link {
+  position: fixed;
+  bottom: 60px;
+  right: 10px;
+  color: #ffcc00;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+#memorial-link:hover {
+  text-decoration: underline;
+}
+
+#nautica-bodycam-link {
+  position: fixed;
+  bottom: 90px;
+  right: 10px;
+  color: #ffcc00;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+#nautica-bodycam-link:hover {
+  text-decoration: underline;
+}
+
+/* Enhanced click effects */
+.click-effect {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, rgba(255,204,0,0.8) 0%, rgba(255,204,0,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: clickRipple 1s ease-out;
+}
+
+.floating-score {
+  position: absolute;
+  color: #ffcc00;
+  font-weight: bold;
+  pointer-events: none;
+  animation: floatUp 1s ease-out;
+  z-index: 1000;
+}
+
+.floating-score.purchase-effect {
+  color: #ff4444 !important;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+@keyframes clickRipple {
+  0% { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-50px); opacity: 0; }
+}
+
+/* Streak effect */
+.streak-active {
+  filter: brightness(1.2) hue-rotate(45deg);
+  transform: scale(1.1) !important;
+}
+
+#auto-click-warning {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: red;
+  font-weight: bold;
+  z-index: 1000;
+  animation: flash 0.5s infinite alternate;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+#discord-embed {
+  position: fixed;
+  bottom: 120px;
+  right: 10px;
+  background: #5865F2;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#reset-btn {
+  position: fixed;
+  bottom: 150px;
+  right: 10px;
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#reset-btn:hover {
+  background: #ff6666;
+}
+
+.watermark {
+  position: fixed;
+  bottom: 5px;
+  left: 5px;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 12px;
+  user-select: none;
+}
+
+#song-credit {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  color: #ffcc00;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1000;
+}
+
+#streak-counter {
+  position: fixed;
+  top: 50px;
+  right: 10px;
+  font-size: 1.2rem;
+  color: #ffcc00;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+#shop-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.love-letter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  z-index: 2000;
+  max-width: 80%;
+  width: 400px;
+  animation: letterAppear 0.5s ease-out;
+}
+
+.letter-content {
+  position: relative;
+  background: linear-gradient(45deg, #ffefba, #ffffff);
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.close-letter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.letter-text {
+  color: #333;
+  font-family: 'Courier New', monospace;
+  line-height: 1.6;
+}
+
+@keyframes letterAppear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
